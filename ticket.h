@@ -5,9 +5,9 @@
 #include <QDebug>
 class Ticket {
    public:
-    Ticket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date):
+    Ticket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type,int discount):
         _ticket_id(id),_dest_name(dname),_arrival_station(aname),_passenger_id(pass),_train_id(train),_route_id(route),_wagon_number(wagon),_seat_number(seat),
-        _date(date){
+        _date(date),_type(type),_discount(discount){
 #ifndef QT_NO_DEBUG
        qDebug()<<"Ticket created"<<endl;
 #endif
@@ -16,14 +16,16 @@ class Ticket {
         ;
 QString print(){
      QString res;
-     res+="Ticket:"+_ticket_id;
-     res+="Destination:"+_dest_name;
-     res+="Arrival:"+_arrival_station;
-     res+="Passenger id:"+_passenger_id;
-     res+= "train:"+_train_id;
-     res+="wagon:"+_wagon_number;
-     res+="seat:"+_seat_number;
-     res+="date:"+_date;
+     res+=" Ticket: "+_ticket_id;
+     res+=" Destination: "+_dest_name;
+     res+=" Arrival: "+_arrival_station;
+     res+=" Passenger id: "+_passenger_id;
+     res+= " train: "+_train_id;
+     res+=" wagon: "+_wagon_number;
+     res+=" seat: "+_seat_number;
+     res+=" date: "+_date;
+     res+="type: "+_type;
+     res+=" discount "+_discount;
 return res;
  }
 //IT SHOULD BE PURE VIRTUAL !!
@@ -38,6 +40,8 @@ private:
     int _wagon_number;
     int _seat_number;
     int _date;
+    int _discount;
+    QString _type;
 
     Ticket(Ticket&);
 protected:

@@ -6,14 +6,14 @@
 #include<iostream>
 class FullTicket:public Ticket{
 public:
-    FullTicket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date):
-        Ticket( id, dname, aname, pass, train,route,wagon, seat, date){
+    FullTicket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="adult",int discount=0):
+        Ticket( id, dname, aname, pass, train,route,wagon, seat, date,type,discount){
 #ifndef QT_NO_DEBUG
   qDebug()<< "Createdfullticket";
 #endif
     };
 
-QString print();
+
    /* virtual ~FullTicket(){
 #ifndef QT_NO_DEBUG
   qDebug()<< "Deleted fullticket";

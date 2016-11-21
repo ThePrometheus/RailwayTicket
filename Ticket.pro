@@ -14,4 +14,5 @@ SOURCES += main.cpp \
 
 HEADERS += \
     ticket.h \
-    fullticket.h
+    fullticket.h \
+    studentticket.h
