@@ -4,8 +4,9 @@
 #include <QTextStream>
 #include <QDebug>
 class Ticket {
+
    public:
-    Ticket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type,int discount):
+    Ticket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="null",int discount=0):
         _ticket_id(id),_dest_name(dname),_arrival_station(aname),_passenger_id(pass),_train_id(train),_route_id(route),_wagon_number(wagon),_seat_number(seat),
         _date(date),_type(type),_discount(discount){
 #ifndef QT_NO_DEBUG
@@ -25,12 +26,15 @@ QString print(){
      res+=" seat: "+_seat_number;
      res+=" date: "+_date;
      res+="type: "+_type;
+
      res+=" discount "+_discount;
 return res;
  }
+int getTypeId(){return ownId();}
 //IT SHOULD BE PURE VIRTUAL !!
   virtual ~Ticket(){};
 private:
+virtual int ownId(){};
     int _ticket_id;
     QString _dest_name;
    QString _arrival_station;
@@ -43,8 +47,10 @@ private:
     int _discount;
     QString _type;
 
+
     Ticket(Ticket&);
 protected:
+
  virtual int getTicketId() const {return _ticket_id;}
 virtual QString getDestName() const {return _dest_name;}
  virtual QString getArrivalName() const{return _arrival_station;}

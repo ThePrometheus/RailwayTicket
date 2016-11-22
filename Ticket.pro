@@ -10,9 +10,12 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    fullticket.cpp
+    fullticket.cpp \
+    studentticket.cpp \
+    ticketfordisabled.cpp
 
 HEADERS += \
     ticket.h \
     fullticket.h \
-    studentticket.h
+    studentticket.h \
+    ticketfordisabled.h

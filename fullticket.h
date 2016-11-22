@@ -5,13 +5,11 @@
 #include<QTextStream>
 #include<iostream>
 class FullTicket:public Ticket{
+    static int _fullId;
 public:
-    FullTicket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="adult",int discount=0):
-        Ticket( id, dname, aname, pass, train,route,wagon, seat, date,type,discount){
-#ifndef QT_NO_DEBUG
-  qDebug()<< "Createdfullticket";
-#endif
-    };
+    FullTicket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="adult",int discount=0);
+
+
 
 
    /* virtual ~FullTicket(){
@@ -22,6 +20,7 @@ public:
 }*/
 
 private:
+int ownId();
     FullTicket operator=(const FullTicket&);
     FullTicket(const FullTicket&);
 
