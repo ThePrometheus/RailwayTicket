@@ -7,7 +7,7 @@
 class StudentTicket:public Ticket{
 static int _studentId;
 public:
-StudentTicket(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="student",int discount=50);
+StudentTicket(QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="student",int discount=50);
 
 
 

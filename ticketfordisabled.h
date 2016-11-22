@@ -4,7 +4,7 @@
 class TicketForDisabled:public Ticket{
     static int _disabledId;
 public:
-TicketForDisabled(int id,QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="student",int discount=50);
+TicketForDisabled(QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="student",int discount=50);
 
 
 

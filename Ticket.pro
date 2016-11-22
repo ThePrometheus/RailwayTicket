@@ -12,10 +12,13 @@ TEMPLATE = app
 SOURCES += main.cpp \
     fullticket.cpp \
     studentticket.cpp \
-    ticketfordisabled.cpp
+    ticketfordisabled.cpp \
+    ticket.cpp \
+    elderticket.cpp
 
 HEADERS += \
     ticket.h \
     fullticket.h \
     studentticket.h \
-    ticketfordisabled.h
+    ticketfordisabled.h \
+    elderticket.h

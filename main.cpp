@@ -3,16 +3,30 @@
 #include "studentticket.h"
 #include <QDebug>
 #include "ticketfordisabled.h"
+#include "elderticket.h"
 int main(int argc, char *argv[])
 {
-    FullTicket ft(1,"hello","Richardson",2,3,4,5,6,7);
+    FullTicket ft("hello","Richardson",2,3,4,5,6,7);
     Ticket * t = &ft;
     qDebug()<<t->print();
-    StudentTicket st(1,"hello","Ivanov",2,3,4,5,6,7);
-    qDebug()<<st.print();
-    TicketForDisabled tfd(1,"HI","HAmlet",2,3,4,5,6,7);
-    qDebug()<<tfd.print();
+    StudentTicket st("hello","Ivanov",2,3,4,5,6,7);
+    qDebug()<<st.print()<<endl;
+    TicketForDisabled tfd("HI","Hamlet",2,3,4,5,6,7);
+    qDebug()<<tfd.print()<<endl;
 qDebug()<<tfd.getTypeId();
+
+qDebug()<<tfd.getTicketId();
+ElderTicket  et("HI","Hamlet",2,3,4,5,6,7);
+qDebug()<<et.print()<<endl;
+qDebug()<<et.getTypeId()<<endl;
+qDebug()<<et.getTicketId()<<endl;
+
+ElderTicket et2("Frankfurt","Kiev",2,3,4,5,6,7);
+qDebug()<<et2.print()<<endl;
+qDebug()<<et2.getTypeId()<<endl;
+qDebug()<<et2.getTicketId()<<endl;
+
+
     QCoreApplication a(argc, argv);
 
     return a.exec();
