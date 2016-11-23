@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     ticketfordisabled.cpp \
     ticket.cpp \
     elderticket.cpp \
-    seat.cpp
+    seat.cpp \
+    wagon.cpp
 
 HEADERS += \
     ticket.h \
@@ -24,4 +25,5 @@ HEADERS += \
     ticketfordisabled.h \
     elderticket.h \
     passenger.h \
-    seat.h
+    seat.h \
+    wagon.h

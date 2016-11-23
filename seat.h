@@ -14,6 +14,7 @@ Seat(int number=0);
 ~Seat();
  void makeAvailable();
 void makeUnavailable();
+bool isAvailable();
 const int getNumber() const;
 
 

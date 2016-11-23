@@ -15,6 +15,10 @@ Seat::Seat(int number):_seat_number(number),_is_available(true){
  const int Seat::getNumber()const {
      return this->_seat_number;
  }
+ bool Seat::isAvailable(){
+     return _is_available;
+ }
+
 Seat::~Seat(){
 #ifndef QT_NO_DEBUG
     qDebug()<<"Seat is created"<<endl;

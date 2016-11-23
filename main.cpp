@@ -5,10 +5,16 @@
 #include "ticketfordisabled.h"
 #include "elderticket.h"
 #include "seat.h"
+#include"wagon.h"
 int main(int argc, char *argv[])
 {
     Seat s (1);
     qDebug()<<s.getNumber()<<endl;
+    Wagon w (2,5);
+   qDebug()<< w.getSeat(3)->getNumber();
+   qDebug()<<w.getSeat(10)->getNumber();
+   qDebug()<<w.print()<<endl;
+
   /*  FullTicket ft("hello","Richardson",2,3,4,5,6,7);
     Ticket * t = &ft;
     qDebug()<<t->print();
