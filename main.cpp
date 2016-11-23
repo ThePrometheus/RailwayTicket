@@ -4,9 +4,12 @@
 #include <QDebug>
 #include "ticketfordisabled.h"
 #include "elderticket.h"
+#include "seat.h"
 int main(int argc, char *argv[])
 {
-    FullTicket ft("hello","Richardson",2,3,4,5,6,7);
+    Seat s (1);
+    qDebug()<<s.getNumber()<<endl;
+  /*  FullTicket ft("hello","Richardson",2,3,4,5,6,7);
     Ticket * t = &ft;
     qDebug()<<t->print();
     StudentTicket st("hello","Ivanov",2,3,4,5,6,7);
@@ -24,7 +27,7 @@ qDebug()<<et.getTicketId()<<endl;
 ElderTicket et2("Frankfurt","Kiev",2,3,4,5,6,7);
 qDebug()<<et2.print()<<endl;
 qDebug()<<et2.getTypeId()<<endl;
-qDebug()<<et2.getTicketId()<<endl;
+qDebug()<<et2.getTicketId()<<endl;*/
 
 
     QCoreApplication a(argc, argv);

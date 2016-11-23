@@ -14,11 +14,14 @@ SOURCES += main.cpp \
     studentticket.cpp \
     ticketfordisabled.cpp \
     ticket.cpp \
-    elderticket.cpp
+    elderticket.cpp \
+    seat.cpp
 
 HEADERS += \
     ticket.h \
     fullticket.h \
     studentticket.h \
     ticketfordisabled.h \
-    elderticket.h
+    elderticket.h \
+    passenger.h \
+    seat.h
