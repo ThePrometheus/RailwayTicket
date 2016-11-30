@@ -21,6 +21,6 @@ Seat::Seat(int number):_seat_number(number),_is_available(true){
 
 Seat::~Seat(){
 #ifndef QT_NO_DEBUG
-    qDebug()<<"Seat is created"<<endl;
+    qDebug()<<"Seat is deleted"<<endl;
 #endif
 }

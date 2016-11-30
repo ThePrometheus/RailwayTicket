@@ -4,10 +4,12 @@
 #include<QVector>
 #include<QSharedPointer>
 #include"seat.h"
+#include<QString>
 class Wagon{
 private:
     int _wagon_number;
     int _wagon_size;
+    QString _info;
     QVector<QSharedPointer<Seat>> _seats;
     Wagon(const Wagon&);
     Wagon&operator=(const Wagon&);
@@ -15,7 +17,7 @@ private:
     void depopulateWagon();
 
 public:
-    Wagon(int number=0, int numberOfSeats=1);
+    Wagon(int number=0, int numberOfSeats=20);
     ~Wagon();
     const QString& print();
 

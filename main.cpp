@@ -6,9 +6,11 @@
 #include "elderticket.h"
 #include "seat.h"
 #include"wagon.h"
+#include "train.h"
 int main(int argc, char *argv[])
-{
-    Seat s (1);
+{Train t1 (1,12,20);
+
+  /*  Seat s (1);
     qDebug()<<s.getNumber()<<endl;
     Wagon w (2,5);
    qDebug()<< w.getSeat(3)->getNumber();
