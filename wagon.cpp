@@ -22,9 +22,9 @@ Wagon::~Wagon(){
 const QString& Wagon::print(){
     _info="";
 for(int i=0;i<_seats.size();++i)
-res+="Seat:"+_seats.at(i)->getNumber();
+_info+="Seat:"+_seats.at(i)->getNumber();
 
-return res;
+return _info;
 }
 
 void Wagon::changeNumber(int i){

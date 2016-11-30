@@ -7,8 +7,23 @@
 #include "seat.h"
 #include"wagon.h"
 #include "train.h"
+#include "route.h"
+#include "stops.h"
 int main(int argc, char *argv[])
-{Train t1 (1,12,20);
+{QVector<QSharedPointer<Stops>> st(3);
+    for(int i=0;i<3;++i){
+Stops s(10,"Kiev");
+QSharedPointer<Stops> sp(&s);
+st.append(sp);
+
+
+
+    }
+    QString qs ="Frankfurt";
+    Route r (qs,1,2,st);
+
+  //  Train t1 (1,12,20);
+//   qDebug()<< t1.getWagon(2)->getSeat(5)->getNumber();
 
   /*  Seat s (1);
     qDebug()<<s.getNumber()<<endl;

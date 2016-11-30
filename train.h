@@ -12,12 +12,17 @@ private:
     QVector<QSharedPointer<Wagon>>  _wagons;
     virtual void populateTrain(int number);
     virtual void depopulateTrain();
+    Train(const Train&);
+    Train&operator=(const Train&);
 public:
-    Train(int id,int date,int number_of_wagons=16);
+    Train(int id,int date=20,int number_of_wagons=16);
     ~Train();
-  inline   int getId(){return _train_id;}
-  inline   int getDate(){return _date;}
+  inline const   int getId() const{return _train_id;}
+  inline  const int getDate()const {return _date;}
 const QSharedPointer<Wagon>& getWagon(int i);
+void setDate(int date){_date=date;}
+//void setSize(int size);
+
 
 
 
