@@ -25,7 +25,7 @@ private:
   virtual  void depopulateRoute();
 
 public:
-    Route(QString& depart_station,int id,int route_size,QVector<QSharedPointer<Stops>>& stops);
+    Route(const QString& depart_station,int id,int route_size,QVector<QSharedPointer<Stops>>& stops);
     ~Route();
     const QSharedPointer<Train>& findByDate(int date);
     const QString& getDepartStation();

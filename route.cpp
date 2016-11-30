@@ -5,20 +5,20 @@
 #include "route.h"
 #include <QDebug>
 
-  Route::Route(QString& depart_station,int id,int route_size,QVector<QSharedPointer<Stops>>& stops):_route_id(id),
+  Route::Route( const QString& depart_station,int id,int route_size,QVector<QSharedPointer<Stops>>& stops):_route_id(id),
       _nstops(stops.size()),_route_size(route_size),_stops(stops),_depart_station(depart_station){
     populateRoute(route_size);
-#ifndef QT_NO_DEBUG
+
     qDebug()<<"ROUTE IS CREATED"<<endl;
-#endif
+
 
 
   }
   Route::~Route(){
       depopulateRoute();
-#ifndef QT_NO_DEBUG
+
     qDebug()<<"ROUTE IS DELETED"<<endl;
-#endif
+
   }
 
   void Route::populateRoute(int number){

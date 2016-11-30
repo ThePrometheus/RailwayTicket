@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     wagon.cpp \
     route.cpp \
     train.cpp \
-    stops.cpp
+    stops.cpp \
+    station.cpp
 
 HEADERS += \
     ticket.h \
@@ -32,4 +33,5 @@ HEADERS += \
     wagon.h \
     route.h \
     train.h \
-    stops.h
+    stops.h \
+    station.h

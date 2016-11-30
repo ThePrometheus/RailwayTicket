@@ -9,8 +9,11 @@
 #include "train.h"
 #include "route.h"
 #include "stops.h"
+#include "station.h"
 int main(int argc, char *argv[])
-{QVector<QSharedPointer<Stops>> st(3);
+{Station s("frankfurt");
+
+    QVector<QSharedPointer<Stops>> st(3);
     for(int i=0;i<3;++i){
 Stops s(10,"Kiev");
 QSharedPointer<Stops> sp(&s);
@@ -19,8 +22,10 @@ st.append(sp);
 
 
     }
-    QString qs ="Frankfurt";
-    Route r (qs,1,2,st);
+
+    Route r (s.getStationName(),1,2,st);
+    QSharedPointer<Route>  route1(&r);
+    s.addRoute(route1);
 
   //  Train t1 (1,12,20);
 //   qDebug()<< t1.getWagon(2)->getSeat(5)->getNumber();
