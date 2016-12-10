@@ -1,5 +1,7 @@
 #ifndef STOPS_H
 #define STOPS_H
+
+#include <QJsonObject>
 class Stops{
 private:
     int _date;
@@ -10,8 +12,12 @@ public:
     Stops(const Stops&);
     const int getDate()const {return _date;}
     const QString& getStation()const {return _station;}
-Stops(int date,QString station);
-~Stops();
+    Stops(int date,QString station);
+    ~Stops();
+
+    // JSON read/write
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json);
 };
 
 #endif // STOPS_H

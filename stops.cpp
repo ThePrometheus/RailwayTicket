@@ -19,3 +19,13 @@ Stops::Stops (const Stops& s ){
 
 }
 
+
+void Stops::read(const QJsonObject &json) {
+    _date = json["date"].toInt();
+    _station = json["station"].toString();
+}
+
+void Stops::write(QJsonObject &json) {
+    json["date"] = this->_date;
+    json["station"] = this->_station;
+}
