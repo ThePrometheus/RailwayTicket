@@ -12,7 +12,7 @@ public:
     Stops(const Stops&);
     const int getDate()const {return _date;}
     const QString& getStation()const {return _station;}
-    Stops(int date,QString station);
+    Stops(int date = 0, QString station = QString::null);
     ~Stops();
 
     // JSON read/write

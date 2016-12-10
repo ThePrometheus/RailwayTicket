@@ -4,6 +4,7 @@
 #include "train.h"
 #include "route.h"
 #include <QDebug>
+#include <QJsonArray>
 
 Route::Route( const QString& depart_station,int id,int route_size,QVector<QSharedPointer<Stops>>& stops):_route_id(id),
     _nstops(stops.size()),_route_size(route_size),_stops(stops),_depart_station(depart_station){
@@ -83,8 +84,18 @@ void Route::read(const QJsonObject &json) {
     _route_id = json["routeId"].toInt();
     _nstops = json["nStops"].toInt();
     _route_size = json["routeSize"].toInt();
-    QVector<QSharedPointer<Train>> _trains;
-    QVector<QSharedPointer<Stops>> _stops;
+    //for (size_t i = 0; i < _stops.size(); ++i)
+      //  _stops.pop_back();
+    _stops.clear();
+    QJsonArray stops = json["stops"].toArray();
+    for (size_t i = 0; i < stops.size(); ++i) {
+        QJsonObject obj = stops[i].toObject();
+        Stops s;
+        s.read(obj);
+        _stops.append(s);
+    }
+    depopulateRoute();
+    populateRoute(_route_size);
 }
 
 void Route::write(QJsonObject &json);
