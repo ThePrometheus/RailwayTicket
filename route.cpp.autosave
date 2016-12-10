@@ -80,7 +80,7 @@ void Route::addArrivalStation(int date,QString station){
 
 void Route::read(const QJsonObject &json) {
     _depart_station = json["departStation"].toString();
-    _route_id = json[""]
+    _route_id = json["routeId"].toInt();
     QVector<QSharedPointer<Train>> _trains;
     int _nstops;
     QVector<QSharedPointer<Stops>> _stops;

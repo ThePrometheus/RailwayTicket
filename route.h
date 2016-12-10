@@ -5,13 +5,9 @@
 #include <QVector>
 #include<QSharedPointer>
 #include "stops.h"
+#include <QJsonObject>
 class Route {
 private:
-    //OBSOLETE
-   /* struct Stops{
-        int _date;
-        QString _station;
-    };*/
     QString _depart_station;
     int _route_id;
     QVector<QSharedPointer<Train>> _trains;
@@ -31,6 +27,11 @@ public:
     const QString& getDepartStation();
     const QVector<QString>& getArrivalStations();
     const int getId() const{return _route_id;}
+
+    // JSON read/write
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json);
+
 const QString& getStationAt(int date);
 //OBSOLETE
 //const int getTimeAtStation(const QString& station);

@@ -3,6 +3,7 @@
 #include "wagon.h"
 #include <QVector>
 #include <QSharedPointer>
+#include <QJsonObject>
 class Train{
 
 private:
@@ -17,11 +18,15 @@ private:
 public:
     Train(int id,int date=20,int number_of_wagons=16);
     ~Train();
-  inline const   int getId() const{return _train_id;}
-  inline  const int getDate()const {return _date;}
-const QSharedPointer<Wagon>& getWagon(int i);
-void setDate(int date){_date=date;}
-//void setSize(int size);
+    inline const   int getId() const{return _train_id;}
+    inline  const int getDate()const {return _date;}
+    const QSharedPointer<Wagon>& getWagon(int i);
+    void setDate(int date){_date=date;}
+
+    // JSON read/write
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json);
+    //void setSize(int size);
 
 
 

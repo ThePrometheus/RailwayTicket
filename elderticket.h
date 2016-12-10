@@ -4,7 +4,8 @@
 class ElderTicket:public Ticket{
     static int _elderId;
 public:
-ElderTicket(QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="elder",int discount=10);
+ElderTicket(QString dname,QString aname,int pass,int train,int route,
+            int wagon,int seat,int date,QString type="elder",int discount=10);
 
 
 

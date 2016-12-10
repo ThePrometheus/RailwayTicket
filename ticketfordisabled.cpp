@@ -4,13 +4,13 @@ TicketForDisabled::TicketForDisabled(QString dname,QString aname,int pass,int tr
     Ticket( dname, aname, pass, train,route,wagon, seat, date,type,discount,_disabledId++){
 
 #ifndef QT_NO_DEBUG
-qDebug()<< "Created disabled ticket  ";
+    qDebug()<< "Created disabled ticket  ";
 #endif
-};
+}
 
 TicketForDisabled::~TicketForDisabled(){
 #ifndef QT_NO_DEBUG
-qDebug()<< "Deleted disabled ticket  ticket";
+    qDebug()<< "Deleted disabled ticket  ticket";
 #endif
 }
 int TicketForDisabled::_disabledId=0;

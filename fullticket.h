@@ -7,7 +7,8 @@
 class FullTicket:public Ticket{
     static int _fullId;
 public:
-    FullTicket(QString dname,QString aname,int pass,int train,int route,int wagon,int seat,int date,QString type="adult",int discount=0);
+    FullTicket(QString dname,QString aname,int pass,int train,
+               int route,int wagon,int seat,int date,QString type="adult",int discount=0);
 
 
 

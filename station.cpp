@@ -12,17 +12,17 @@ Station::Station(QString name):_station_name(name){
 
 }
 Station::~Station(){
- qDebug()<<"Station deleted"<<endl;
+    qDebug()<<"Station deleted"<<endl;
 }
 void Station::addRoute(const QSharedPointer<Route>&  route ){
- _depart_routes.append(route);
+    _depart_routes.append(route);
 }
 QString Station::getStationName(){
     return _station_name;
 }
 //TO-DO:Handle exceptions
 const QSharedPointer<Route>& Station::getRoute(int id){
-return _depart_routes[id];
+    return _depart_routes[id];
 }
 
 
