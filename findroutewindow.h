@@ -10,6 +10,9 @@
 #include <QStringListModel>
 #include <QTextEdit>
 #include <QDataWidgetMapper>
+#include <QSharedPointer>
+#include <QVector>
+
 #include "routedb.h"
 
 class QComboBox;
@@ -49,6 +52,8 @@ private:
     QDataWidgetMapper *mapper;
 
     RouteDb _rdb;
+    QVector<QSharedPointer<Train>> _availableTrains;
+
 };
 
 

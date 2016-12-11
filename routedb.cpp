@@ -61,7 +61,7 @@ void RouteDb::loadRoutes() {
     _routes.resize(routes.size());
     for (size_t i = 0; i < routes.size(); ++i) {
         QJsonObject obj = routes[i].toObject();
-        QVector<Stops> empty;
+        QVector<QSharedPointer<Stops>> empty;
         Route r(QString::null, 0, 0, empty);
         r.read(obj);
         QSharedPointer<Route> rp(&r);

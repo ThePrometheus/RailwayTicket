@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QJsonArray>
 
-Route::Route(const QString& depart_station, int id, int route_size, QVector<Stops> &stops):_route_id(id),
+Route::Route(const QString& depart_station, int id, int route_size, QVector<QSharedPointer<Stops> > &stops):_route_id(id),
     _nstops(stops.size()),_route_size(route_size),_stops(stops),_depart_station(depart_station){
     populateRoute(route_size);
 
@@ -42,7 +42,7 @@ const QString& Route::getDepartStation(){
 const QVector<QString>& Route::getArrivalStations(){
     QVector<QString> temp(_stops.size());
     for(int i=0;i<_stops.size();++i){
-        temp[i] = _stops[i].getStation();
+        temp[i] = _stops[i]->getStation();
 
     }
     return QVector<QString>(temp);
@@ -51,8 +51,8 @@ const QVector<QString>& Route::getArrivalStations(){
 
 const QString& Route::getStationAt(int date){
     for(int i=0;i<_stops.size();++i){
-        if(_stops[i].getDate()==date){
-            return _stops[i].getStation();
+        if(_stops[i]->getDate()==date){
+            return _stops[i]->getStation();
         }
 
         //TO-DO::HANDLE SITUATION WHEN NOT FOUND
@@ -61,6 +61,7 @@ const QString& Route::getStationAt(int date){
 
 }
 const QSharedPointer<Train>& Route::findByDate(int date){
+    qDebug() << "entered findByDate";
     for(int i=0;i<_trains.size();++i){
         if(_trains[i]->getDate()==date){
             return _trains[i];
@@ -74,7 +75,7 @@ const QSharedPointer<Train>& Route::findByDate(int date){
 //TO-DO::HANDLE EXCEPTION !!!
 void Route::addArrivalStation(int date,QString station){
     Stops s(date,station);
-    _stops.append(s);
+    _stops.append(QSharedPointer<Stops>(&s));
     ++_nstops;
 }
 
@@ -92,7 +93,8 @@ void Route::read(const QJsonObject &json) {
         QJsonObject obj = stops[i].toObject();
         Stops s;
         s.read(obj);
-        _stops.append(s);
+        QSharedPointer<Stops> sp(&s);
+        _stops.append(sp);
     }
     depopulateRoute();
     populateRoute(_route_size);
@@ -104,9 +106,9 @@ void Route::write(QJsonObject &json) {
     json["nStops"] = _nstops;
     json["routeSize"] = _route_size;
     QJsonArray arr;
-    foreach (const Stops& s, _stops) {
+    foreach (const QSharedPointer<Stops>& s, _stops) {
         QJsonObject obj;
-        s.write(obj);
+        s->write(obj);
         arr.append(obj);
     }
     json["stops"] = arr;

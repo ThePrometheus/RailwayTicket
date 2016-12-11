@@ -1,6 +1,7 @@
 #include "findroutewindow.h"
 #include <QGridLayout>
 #include <QMessageBox>
+#include "stops.h"
 
 FindRouteWindow::FindRouteWindow(QWidget *parent)
     : QWidget(parent), _rdb("c:/tmpdata/routes.json")
@@ -51,8 +52,29 @@ FindRouteWindow::FindRouteWindow(QWidget *parent)
 }
 
 void FindRouteWindow::handleRoute() {
+    QString from(departEdit->text());
+    QString to(destinationEdit->text());
+    // When the db works
+    // const QVector<QSharedPointer<Route>> routes(_rdb.findRoutes(from, to));
+    QVector<QSharedPointer<Stops>> st(1);
+    Stops s(10, to);
+    QSharedPointer<Stops> sp(&s);
+    st.append(sp);
+    Route r (from,1,2,st);
+    QSharedPointer<Route> rp(&r);
+    QVector<QSharedPointer<Route>> routes(1);
+
+    routes.append(rp);
+
+    _availableTrains.clear();
+    foreach (const QSharedPointer<Route> route, routes) {
+        qDebug() << route->findByDate(10);
+        _availableTrains.append(route->findByDate(10));
+        qDebug() << "in handler";
+    }
+
     QMessageBox msgBox;
-    msgBox.setText("Sorry, there's no such route available.");
+    msgBox.setText("Sorry, there are no available trains at the moment.");
     msgBox.exec();
 }
 

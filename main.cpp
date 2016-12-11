@@ -26,24 +26,22 @@ int main(int argc, char *argv[])
     
     
     Station s("frankfurt");
-   /* bahn.addStation(&s);
+    /* bahn.addStation(&s);
     QSharedPointer<Station> ss = bahn.findDepartStation(s.getStationName());*/
     
-   // QVector<Stops> stmp(3);
-    QVector<Stops> st(1);
-   // QVector<QSharedPointer<Stops>> st(3);
+    QVector<QSharedPointer<Stops>> st(3);
     for(int i=0;i<3;++i){
-        Stops s(10,"Kiev");
-       // qDebug()<<s.getDate()<<endl;
-       // stmp.append(s);
-       // QSharedPointer<Stops> sp(QSharedPointer<Stops>::create(10, "Kiev"));
-       // QSharedPointer<Stops> sp(&s);
-       // st.append(sp);
-        st.append(s);
-       // qDebug()<< st.at(0).getDate() <<endl;
+        Stops s(2000+i,"Kiev");
+        qDebug()<<s.getDate()<<endl;
+        QSharedPointer<Stops> sp(&s);
+        qDebug()<<sp->getDate()<<endl;
+        st.append(sp);
+
     }
-    for (int i = 0; i < st.size(); ++i)
-        qDebug()<< st.at(i).getDate() <<endl;
+   /* for(int i=0;i<2;++i){
+        qDebug()<<"test:"<<st.at(i)->getDate()<<endl;
+    }*/
+    qDebug() << "end of test 1";
     
     Route r (s.getStationName(),1,2,st);
     QSharedPointer<Route> route1(&r);
@@ -52,7 +50,7 @@ int main(int argc, char *argv[])
     RouteDb rdb(QString("c:/tmpdata/routes.json"));
     rdb.addRoute(route1);
     qDebug() << rdb._routes.at(0);
-  //  rdb.saveRoutes();
+    //  rdb.saveRoutes();
     
     /*Train t1 (1,12,20);
     //   qDebug()<< t1.getWagon(2)->getSeat(5)->getNumber();
@@ -79,13 +77,13 @@ int main(int argc, char *argv[])
 qDebug()<<et.getTypeId()<<endl;
 qDebug()<<et.getTicketId()<<endl;
 */
-   /* ElderTicket et2("Frankfurt","Kiev",2,3,4,5,6,7);*/
+    /* ElderTicket et2("Frankfurt","Kiev",2,3,4,5,6,7);*/
     /*qDebug()<<et2.print()<<endl;
 qDebug()<<et2.getTypeId()<<endl;
 qDebug()<<et2.getTicketId()<<endl;
 */
     
-   // pass.addTicket(t);
+    // pass.addTicket(t);
     
     QApplication a(argc, argv);
     FindRouteWindow frwindow;
