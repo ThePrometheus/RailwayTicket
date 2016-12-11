@@ -7,8 +7,8 @@
 #include <QIODevice>
 
 RouteDb::RouteDb(const QString &filename) : _db_location(filename) {
-    if (_db_location != QString::null)
-        loadRoutes();
+    //if (_db_location != QString::null)
+        //loadRoutes();
 }
 
 RouteDb::~RouteDb() {

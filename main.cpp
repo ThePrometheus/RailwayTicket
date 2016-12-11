@@ -1,4 +1,5 @@
 #include <QCoreApplication>
+#include <QApplication>
 #include "fullticket.h"
 #include "studentticket.h"
 #include <QDebug>
@@ -13,6 +14,9 @@
 #include "bahn.h"
 #include "passenger.h"
 #include "routedb.h"
+
+// GUI
+#include "findroutewindow.h"
 
 int main(int argc, char *argv[])
 { /*QString pname= "Nazar";
@@ -45,8 +49,9 @@ int main(int argc, char *argv[])
     QSharedPointer<Route>  route1(&r);
     s.addRoute(route1);
 
-   // RouteDb rdb(QString("c:/tmpdata/routes.json"));
-  // rdb.addRoute(route1);
+    RouteDb rdb(QString("c:/tmpdata/routes.json"));
+    rdb.addRoute(route1);
+    qDebug() << rdb._routes.at(0);
   //  rdb.saveRoutes();
     
     /*Train t1 (1,12,20);
@@ -82,7 +87,9 @@ qDebug()<<et2.getTicketId()<<endl;
     
    // pass.addTicket(t);
     
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
+    FindRouteWindow frwindow;
+    frwindow.show();
     
     return a.exec();
 }

@@ -9,6 +9,8 @@
 class RouteDb
 {
 public:
+    // only for debug
+    QVector<QSharedPointer<Route>> _routes;
     RouteDb(const QString& filename = QString::null);
     ~RouteDb();
 
@@ -22,7 +24,7 @@ public:
     const QVector<QSharedPointer<Route>> findRoutes(const QString &from, const QString &to);
 
 private:
-    QVector<QSharedPointer<Route>> _routes;
+   // QVector<QSharedPointer<Route>> _routes;
     QString _db_location;
 
     void loadRoutes();

@@ -76,8 +76,6 @@ void Route::addArrivalStation(int date,QString station){
     Stops s(date,station);
     _stops.append(s);
     ++_nstops;
-
-
 }
 
 

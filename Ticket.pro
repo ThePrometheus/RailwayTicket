@@ -1,5 +1,6 @@
 QT += core
-QT -= gui
+QT += gui
+QT += widgets
 
 CONFIG += c++11
 
@@ -23,7 +24,8 @@ SOURCES += main.cpp \
     station.cpp \
     bahn.cpp \
     passenger.cpp \
-    routedb.cpp
+    routedb.cpp \
+    findroutewindow.cpp
 
 HEADERS += \
     ticket.h \
@@ -39,4 +41,5 @@ HEADERS += \
     stops.h \
     station.h \
     bahn.h \
-    routedb.h
+    routedb.h \
+    findroutewindow.h
