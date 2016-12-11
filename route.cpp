@@ -57,6 +57,7 @@ const QString& Route::getStationAt(int date){
 
         //TO-DO::HANDLE SITUATION WHEN NOT FOUND
     }
+    return QString("NA");
 
 }
 const QSharedPointer<Train>& Route::findByDate(int date){
@@ -67,6 +68,7 @@ const QSharedPointer<Train>& Route::findByDate(int date){
 
         //TO-DO::HANDLE SITUATION WHEN NOT FOUND
     }
+    return QSharedPointer<Train>::create(-1);
 }
 
 //TO-DO::HANDLE EXCEPTION !!!

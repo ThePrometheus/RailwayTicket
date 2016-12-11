@@ -45,9 +45,9 @@ int main(int argc, char *argv[])
     QSharedPointer<Route>  route1(&r);
     s.addRoute(route1);
 
-    RouteDb rdb(QString("c:/tmpdata/routes.json"));
-    rdb.addRoute(route1);
-    rdb.saveRoutes();
+   // RouteDb rdb(QString("c:/tmpdata/routes.json"));
+  // rdb.addRoute(route1);
+  //  rdb.saveRoutes();
     
     /*Train t1 (1,12,20);
     //   qDebug()<< t1.getWagon(2)->getSeat(5)->getNumber();
