@@ -92,7 +92,7 @@ void Route::read(const QJsonObject &json) {
         QJsonObject obj = stops[i].toObject();
         Stops s;
         s.read(obj);
-        _stops.append(s);
+        _stops.append(QSharedPointer<Stops>(&s));
     }
     depopulateRoute();
     populateRoute(_route_size);
@@ -104,9 +104,9 @@ void Route::write(QJsonObject &json) {
     json["nStops"] = _nstops;
     json["routeSize"] = _route_size;
     QJsonArray arr;
-    foreach (const Stops s, _stops) {
+    foreach (const QSharedPointer<Stops> s, _stops) {
         QJsonObject obj;
-        s.write(obj);
+        s.data()->write(obj);
         arr.append(obj);
     }
     json["stops"] = arr;

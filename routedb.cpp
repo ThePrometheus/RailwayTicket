@@ -12,8 +12,8 @@ RouteDb::RouteDb(const QString &filename) : _db_location(filename) {
 }
 
 RouteDb::~RouteDb() {
-    if (_db_location != QString::null)
-        saveRoutes();
+   // if (_db_location != QString::null)
+        //saveRoutes();
     _routes.clear();
 }
 
@@ -22,7 +22,7 @@ void RouteDb::addRoute(const QSharedPointer<Route> r) {
         _routes.append(r);
 }
 
-boolean RouteDb::contains(const QSharedPointer<Route> r) {
+bool RouteDb::contains(const QSharedPointer<Route> r) {
     return _routes.contains(r);
 }
 
@@ -45,7 +45,7 @@ void RouteDb::setLocation(const QString &filename) {
         loadRoutes();
 }
 
-RouteDb::loadRoutes() {
+void RouteDb::loadRoutes() {
     QFile loafFile(_db_location);
 
     if (!loafFile.open(QIODevice::ReadOnly)) {
@@ -59,13 +59,14 @@ RouteDb::loadRoutes() {
     QJsonArray routes = json["routes"].toArray();
     for (size_t i = 0; i < routes.size(); ++i) {
         QJsonObject obj = routes[i].toObject();
-        Route r(QString::null, 0, 0, QVector<QSharedPointer<Stops>>);
+        QVector<QSharedPointer<Stops>> empty;
+        Route r(QString::null, 0, 0, empty);
         r.read(obj);
-        _routes.append(r);
+        _routes.append(QSharedPointer<Route>(&r));
     }
 }
 
-RouteDb::saveRoutes() {
+void RouteDb::saveRoutes() {
     QFile saveFile(_db_location);
 
     if (!saveFile.open(QIODevice::WriteOnly)) {
