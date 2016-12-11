@@ -3,7 +3,7 @@
 #include <QString>
 #include "train.h"
 #include <QVector>
-#include<QSharedPointer>
+#include <QSharedPointer>
 #include "stops.h"
 #include <QJsonObject>
 class Route {

@@ -33,20 +33,20 @@ int main(int argc, char *argv[])
     QVector<Stops> st(1);
    // QVector<QSharedPointer<Stops>> st(3);
     for(int i=0;i<3;++i){
-       // Stops s(10,"Kiev");
+        Stops s(10,"Kiev");
        // qDebug()<<s.getDate()<<endl;
        // stmp.append(s);
        // QSharedPointer<Stops> sp(QSharedPointer<Stops>::create(10, "Kiev"));
        // QSharedPointer<Stops> sp(&s);
        // st.append(sp);
-        st.append(Stops(10, "Kiev"));
+        st.append(s);
        // qDebug()<< st.at(0).getDate() <<endl;
     }
     for (int i = 0; i < st.size(); ++i)
         qDebug()<< st.at(i).getDate() <<endl;
     
     Route r (s.getStationName(),1,2,st);
-    QSharedPointer<Route>  route1(&r);
+    QSharedPointer<Route> route1(&r);
     s.addRoute(route1);
 
     RouteDb rdb(QString("c:/tmpdata/routes.json"));

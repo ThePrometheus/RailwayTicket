@@ -1,86 +1,88 @@
 #include "findroutewindow.h"
 #include <QGridLayout>
+#include <QMessageBox>
 
 FindRouteWindow::FindRouteWindow(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent), _rdb("c:/tmpdata/routes.json")
 {
     setupModel();
 
-    nameLabel = new QLabel(tr("Na&me:"));
-    nameEdit = new QLineEdit();
-    addressLabel = new QLabel(tr("&Address:"));
-    addressEdit = new QTextEdit();
-    typeLabel = new QLabel(tr("&Type:"));
-    typeComboBox = new QComboBox();
-    nextButton = new QPushButton(tr("&Next"));
-    previousButton = new QPushButton(tr("&Previous"));
+    departLabel = new QLabel(tr("&Depart from:"));
+    departEdit = new QLineEdit();
+    destinationLabel = new QLabel(tr("&Arrive at:"));
+    destinationEdit = new QLineEdit();
+   // typeLabel = new QLabel(tr("&Type:"));
+   // typeComboBox = new QComboBox();
+    findButton = new QPushButton(tr("&Find a train"));
+   // previousButton = new QPushButton(tr("&Previous"));
 
-    nameLabel->setBuddy(nameEdit);
-    addressLabel->setBuddy(addressEdit);
-    typeLabel->setBuddy(typeComboBox);
+    departLabel->setBuddy(departEdit);
+    destinationLabel->setBuddy(destinationEdit);
+   // typeLabel->setBuddy(typeComboBox);
 
-    typeComboBox->setModel(typeModel);
+   // typeComboBox->setModel(typeModel);
 
     mapper = new QDataWidgetMapper(this);
     mapper->setModel(model);
-    mapper->addMapping(nameEdit, 0);
-    mapper->addMapping(addressEdit, 1);
-    mapper->addMapping(typeComboBox, 2, "currentIndex");
+    mapper->addMapping(departEdit, 0);
+    mapper->addMapping(destinationEdit, 1);
+   // mapper->addMapping(typeComboBox, 2, "currentIndex");
 
-    connect(previousButton, &QAbstractButton::clicked,
-            mapper, &QDataWidgetMapper::toPrevious);
-    connect(nextButton, &QAbstractButton::clicked,
-            mapper, &QDataWidgetMapper::toNext);
+    //connect(previousButton, &QAbstractButton::clicked,
+            //mapper, &QDataWidgetMapper::toPrevious);
+    connect(findButton, &QAbstractButton::clicked,
+            this, &FindRouteWindow::handleRoute);
     connect(mapper, &QDataWidgetMapper::currentIndexChanged,
             this, &FindRouteWindow::updateButtons);
 
     QGridLayout *layout = new QGridLayout();
-    layout->addWidget(nameLabel, 0, 0, 1, 1);
-    layout->addWidget(nameEdit, 0, 1, 1, 1);
-    layout->addWidget(previousButton, 0, 2, 1, 1);
-    layout->addWidget(addressLabel, 1, 0, 1, 1);
-    layout->addWidget(addressEdit, 1, 1, 2, 1);
-    layout->addWidget(nextButton, 1, 2, 1, 1);
-    layout->addWidget(typeLabel, 3, 0, 1, 1);
-    layout->addWidget(typeComboBox, 3, 1, 1, 1);
+    layout->addWidget(departLabel, 0, 0, 1, 1);
+    layout->addWidget(departEdit, 0, 1, 1, 1);
+   // layout->addWidget(previousButton, 0, 2, 1, 1);
+    layout->addWidget(destinationLabel, 1, 0, 1, 1);
+    layout->addWidget(destinationEdit, 1, 1, 2, 1);
+    layout->addWidget(findButton, 1, 2, 1, 1);
+   // layout->addWidget(typeLabel, 3, 0, 1, 1);
+   // layout->addWidget(typeComboBox, 3, 1, 1, 1);
     setLayout(layout);
 
-    setWindowTitle(tr("Delegate Widget Mapper"));
+    setWindowTitle(tr("Find the train"));
     mapper->toFirst();
+}
+
+void FindRouteWindow::handleRoute() {
+    QMessageBox msgBox;
+    msgBox.setText("Sorry, there's no such route available.");
+    msgBox.exec();
 }
 
 void FindRouteWindow::setupModel()
 {
     QStringList items;
     items << tr("Home") << tr("Work") << tr("Other");
-    typeModel = new QStringListModel(items, this);
+    //typeModel = new QStringListModel(items, this);
 
     model = new QStandardItemModel(5, 3, this);
-    QStringList names;
-    names << "Alice" << "Bob" << "Carol" << "Donald" << "Emma";
-    QStringList addresses;
-    addresses << "<qt>123 Main Street<br/>Market Town</qt>"
-              << "<qt>PO Box 32<br/>Mail Handling Service"
-                 "<br/>Service City</qt>"
-              << "<qt>The Lighthouse<br/>Remote Island</qt>"
-              << "<qt>47338 Park Avenue<br/>Big City</qt>"
-              << "<qt>Research Station<br/>Base Camp<br/>Big Mountain</qt>";
+    QStringList departures;
+    departures << "Input the station name";
+    QStringList destinations;
+    destinations << "Input the station name";
 
-    QStringList types;
-    types << "0" << "1" << "2" << "0" << "2";
+  //  QStringList types;
+  //  types << "0" << "1" << "2" << "0" << "2";
 
-    for (int row = 0; row < 5; ++row) {
-        QStandardItem *item = new QStandardItem(names[row]);
+    for (int row = 0; row < 1; ++row) {
+        QStandardItem *item = new QStandardItem(departures[row]);
         model->setItem(row, 0, item);
-        item = new QStandardItem(addresses[row]);
+        item = new QStandardItem(destinations[row]);
         model->setItem(row, 1, item);
-        item = new QStandardItem(types[row]);
-        model->setItem(row, 2, item);
+       // item = new QStandardItem(types[row]);
+       // model->setItem(row, 2, item);
     }
 }
 
 void FindRouteWindow::updateButtons(int row)
 {
-    previousButton->setEnabled(row > 0);
-    nextButton->setEnabled(row < model->rowCount() - 1);
+   // previousButton->setEnabled(true);
+    findButton->setEnabled(row < model->rowCount() - 1);
 }

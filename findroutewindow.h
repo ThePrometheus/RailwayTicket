@@ -10,6 +10,7 @@
 #include <QStringListModel>
 #include <QTextEdit>
 #include <QDataWidgetMapper>
+#include "routedb.h"
 
 class QComboBox;
 class QDataWidgetMapper;
@@ -32,19 +33,22 @@ private slots:
 
 private:
     void setupModel();
+    void handleRoute();
 
-    QLabel *nameLabel;
-    QLabel *addressLabel;
+    QLabel *departLabel;
+    QLabel *destinationLabel;
     QLabel *typeLabel;
-    QLineEdit *nameEdit;
-    QTextEdit *addressEdit;
-    QComboBox *typeComboBox;
-    QPushButton *nextButton;
-    QPushButton *previousButton;
+    QLineEdit *departEdit;
+    QLineEdit *destinationEdit;
+   // QComboBox *typeComboBox;
+    QPushButton *findButton;
+   // QPushButton *previousButton;
 
     QStandardItemModel *model;
-    QStringListModel *typeModel;
+   // QStringListModel *typeModel;
     QDataWidgetMapper *mapper;
+
+    RouteDb _rdb;
 };
 
 
