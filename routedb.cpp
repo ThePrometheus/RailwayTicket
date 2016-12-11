@@ -57,14 +57,17 @@ void RouteDb::loadRoutes() {
     QJsonObject json = loadDoc.object();
 
     QJsonArray routes = json["routes"].toArray();
-
+    _routes.clear();
+    _routes.resize(routes.size());
     for (size_t i = 0; i < routes.size(); ++i) {
         QJsonObject obj = routes[i].toObject();
         QVector<Stops> empty;
         Route r(QString::null, 0, 0, empty);
         r.read(obj);
-        qDebug() << "about to append";
-        _routes.append(QSharedPointer<Route>(&r));
+        QSharedPointer<Route> rp(&r);
+        qDebug() << "about to append " << rp->getDepartStation();
+        qDebug() << _routes.at(0);
+        _routes.push_back(rp);
     }
 
     qDebug() << "finished loading";
