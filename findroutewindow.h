@@ -40,9 +40,10 @@ private:
 
     QLabel *departLabel;
     QLabel *destinationLabel;
-    QLabel *typeLabel;
+    QLabel *dateLabel;
     QLineEdit *departEdit;
     QLineEdit *destinationEdit;
+    QLineEdit *dateEdit;
    // QComboBox *typeComboBox;
     QPushButton *findButton;
    // QPushButton *previousButton;

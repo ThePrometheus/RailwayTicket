@@ -12,13 +12,14 @@ FindRouteWindow::FindRouteWindow(QWidget *parent)
     departEdit = new QLineEdit();
     destinationLabel = new QLabel(tr("&Arrive at:"));
     destinationEdit = new QLineEdit();
-   // typeLabel = new QLabel(tr("&Type:"));
-   // typeComboBox = new QComboBox();
+    dateLabel = new QLabel(tr("&Date of departure:"));
+    dateEdit = new QLineEdit();
     findButton = new QPushButton(tr("&Find a train"));
    // previousButton = new QPushButton(tr("&Previous"));
 
     departLabel->setBuddy(departEdit);
     destinationLabel->setBuddy(destinationEdit);
+    dateLabel->setBuddy(dateEdit);
    // typeLabel->setBuddy(typeComboBox);
 
    // typeComboBox->setModel(typeModel);
@@ -42,7 +43,9 @@ FindRouteWindow::FindRouteWindow(QWidget *parent)
    // layout->addWidget(previousButton, 0, 2, 1, 1);
     layout->addWidget(destinationLabel, 1, 0, 1, 1);
     layout->addWidget(destinationEdit, 1, 1, 2, 1);
-    layout->addWidget(findButton, 1, 2, 1, 1);
+    layout->addWidget(dateLabel, 3, 0, 1, 1);
+    layout->addWidget(dateEdit, 3, 1, 1, 1);
+    layout->addWidget(findButton, 0, 3, 1, 1);
    // layout->addWidget(typeLabel, 3, 0, 1, 1);
    // layout->addWidget(typeComboBox, 3, 1, 1, 1);
     setLayout(layout);
@@ -54,9 +57,10 @@ FindRouteWindow::FindRouteWindow(QWidget *parent)
 void FindRouteWindow::handleRoute() {
     QString from(departEdit->text());
     QString to(destinationEdit->text());
+    QString on(dateEdit->text().toInt());
     // When the db works
     // const QVector<QSharedPointer<Route>> routes(_rdb.findRoutes(from, to));
-    QVector<QSharedPointer<Stops>> st(1);
+   /* QVector<QSharedPointer<Stops>> st(1);
     Stops s(10, to);
     QSharedPointer<Stops> sp(&s);
     st.append(sp);
@@ -71,7 +75,7 @@ void FindRouteWindow::handleRoute() {
         qDebug() << route->findByDate(10);
         _availableTrains.append(route->findByDate(10));
         qDebug() << "in handler";
-    }
+    }*/
 
     QMessageBox msgBox;
     msgBox.setText("Sorry, there are no available trains at the moment.");

@@ -26,6 +26,7 @@ void Route::populateRoute(int number){
     _trains = QVector<QSharedPointer<Train>>(number);
     for(int i=0;i<number;++i){
         _trains[i] = QSharedPointer<Train>(new Train(i));
+        qDebug() << "in populateRoute";
     }
 }
 
@@ -61,8 +62,9 @@ const QString& Route::getStationAt(int date){
 
 }
 const QSharedPointer<Train>& Route::findByDate(int date){
-    qDebug() << "entered findByDate";
+    qDebug() << "entered findByDate, n of trains: " << _trains.at(0);
     for(int i=0;i<_trains.size();++i){
+        qDebug() << "in findByDate loop";
         if(_trains[i]->getDate()==date){
             return _trains[i];
         }
