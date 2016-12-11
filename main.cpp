@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
         st.append(Stops(10, "Kiev"));
        // qDebug()<< st.at(0).getDate() <<endl;
     }
-    qDebug()<< "hi" <<endl;
     for (int i = 0; i < st.size(); ++i)
         qDebug()<< st.at(i).getDate() <<endl;
     

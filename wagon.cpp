@@ -12,7 +12,7 @@ Wagon::Wagon(int number,int size):_wagon_number(number),_wagon_size(size){
 Wagon::~Wagon(){
     depopulateWagon();
 #ifndef QT_NO_DEBUG
-    qDebug()<<"Wagon is deleted"<<endl;
+    //qDebug()<<"Wagon is deleted"<<endl;
 #endif
 }
  const QSharedPointer<Seat>& Wagon::getSeat(int i){

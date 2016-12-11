@@ -33,7 +33,7 @@ void RouteDb::removeRoute(const QSharedPointer<Route> r) {
 const QVector<QSharedPointer<Route>> RouteDb::findRoutes(const QString &from, const QString &to) {
     QVector<QSharedPointer<Route>> res;
     foreach (const QSharedPointer<Route> r, _routes) {
-        if (r.data()->getDepartStation() == from && r.data()->getArrivalStations().contains(to))
+        if (r->getDepartStation() == from && r->getArrivalStations().contains(to))
             res.append(r);
     }
     return res;
@@ -57,14 +57,17 @@ void RouteDb::loadRoutes() {
     QJsonObject json = loadDoc.object();
 
     QJsonArray routes = json["routes"].toArray();
+
     for (size_t i = 0; i < routes.size(); ++i) {
         QJsonObject obj = routes[i].toObject();
         QVector<Stops> empty;
         Route r(QString::null, 0, 0, empty);
         r.read(obj);
+        qDebug() << "about to append";
         _routes.append(QSharedPointer<Route>(&r));
     }
 
+    qDebug() << "finished loading";
     loafFile.close();
 }
 
