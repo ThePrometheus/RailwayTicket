@@ -18,6 +18,12 @@ Stops::Stops (const Stops& s ){
      Stops(s.getDate(),s.getStation());
 
 }
+Stops& Stops::operator=(const Stops& other) {
+    if (this==&other)
+        return *this;
+    this->_date = other.getDate();
+    this->_station = other.getStation();
+}
 
 
 void Stops::read(const QJsonObject &json) {
@@ -25,7 +31,8 @@ void Stops::read(const QJsonObject &json) {
     _station = json["station"].toString();
 }
 
-void Stops::write(QJsonObject &json) {
-    json["date"] = this->_date;
-    json["station"] = this->_station;
+void Stops::write(QJsonObject &json) const {
+    json["date"] = (_date) ? this->_date : 0;
+    qDebug()<<"hi"<<endl;
+    json["station"] = (_station != QString::null) ? this->_station : QString("NA");
 }

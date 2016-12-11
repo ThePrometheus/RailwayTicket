@@ -5,7 +5,7 @@
 Wagon::Wagon(int number,int size):_wagon_number(number),_wagon_size(size){
     populateWagon(size);
 #ifndef QT_NO_DEBUG
-    qDebug()<<"Wagon is created"<<endl;
+   // qDebug()<<"Wagon is created"<<endl;
 
 #endif
 }

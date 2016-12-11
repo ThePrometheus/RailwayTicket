@@ -12,31 +12,45 @@
 #include "station.h"
 #include "bahn.h"
 #include "passenger.h"
+#include "routedb.h"
 
 int main(int argc, char *argv[])
-{ QString pname= "Nazar";
+{ /*QString pname= "Nazar";
     QString pinfo="Student";
     Passenger pass(pname,pinfo);
-    Bahn bahn ;
+    Bahn bahn ;*/
     
     
     Station s("frankfurt");
-    bahn.addStation(&s);
-    QSharedPointer<Station> ss = bahn.findDepartStation(s.getStationName());
+   /* bahn.addStation(&s);
+    QSharedPointer<Station> ss = bahn.findDepartStation(s.getStationName());*/
     
-    
-    QVector<QSharedPointer<Stops>> st(3);
+   // QVector<Stops> stmp(3);
+    QVector<Stops> st(1);
+   // QVector<QSharedPointer<Stops>> st(3);
     for(int i=0;i<3;++i){
-        Stops s(10,"Kiev");
-        QSharedPointer<Stops> sp(&s);
-        st.append(sp);    
+       // Stops s(10,"Kiev");
+       // qDebug()<<s.getDate()<<endl;
+       // stmp.append(s);
+       // QSharedPointer<Stops> sp(QSharedPointer<Stops>::create(10, "Kiev"));
+       // QSharedPointer<Stops> sp(&s);
+       // st.append(sp);
+        st.append(Stops(10, "Kiev"));
+       // qDebug()<< st.at(0).getDate() <<endl;
     }
+    qDebug()<< "hi" <<endl;
+    for (int i = 0; i < st.size(); ++i)
+        qDebug()<< st.at(i).getDate() <<endl;
     
     Route r (s.getStationName(),1,2,st);
     QSharedPointer<Route>  route1(&r);
     s.addRoute(route1);
+
+    RouteDb rdb(QString("c:/tmpdata/routes.json"));
+    rdb.addRoute(route1);
+    rdb.saveRoutes();
     
-    Train t1 (1,12,20);
+    /*Train t1 (1,12,20);
     //   qDebug()<< t1.getWagon(2)->getSeat(5)->getNumber();
     
     Seat seat (1);
@@ -61,13 +75,13 @@ int main(int argc, char *argv[])
 qDebug()<<et.getTypeId()<<endl;
 qDebug()<<et.getTicketId()<<endl;
 */
-    ElderTicket et2("Frankfurt","Kiev",2,3,4,5,6,7);
+   /* ElderTicket et2("Frankfurt","Kiev",2,3,4,5,6,7);*/
     /*qDebug()<<et2.print()<<endl;
 qDebug()<<et2.getTypeId()<<endl;
 qDebug()<<et2.getTicketId()<<endl;
 */
     
-    pass.addTicket(t);
+   // pass.addTicket(t);
     
     QCoreApplication a(argc, argv);
     

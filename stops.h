@@ -7,17 +7,17 @@ private:
     int _date;
     QString _station;
 
-    Stops&operator=(const Stops&);
 public:
+    Stops(int date = 0, QString station = QString("NA"));
+    ~Stops();
     Stops(const Stops&);
+    Stops&operator=(const Stops&);
     const int getDate()const {return _date;}
     const QString& getStation()const {return _station;}
-    Stops(int date = 0, QString station = QString::null);
-    ~Stops();
 
     // JSON read/write
     void read(const QJsonObject &json);
-    void write(QJsonObject &json);
+    void write(QJsonObject &json) const;
 };
 
 #endif // STOPS_H

@@ -59,11 +59,13 @@ void RouteDb::loadRoutes() {
     QJsonArray routes = json["routes"].toArray();
     for (size_t i = 0; i < routes.size(); ++i) {
         QJsonObject obj = routes[i].toObject();
-        QVector<QSharedPointer<Stops>> empty;
+        QVector<Stops> empty;
         Route r(QString::null, 0, 0, empty);
         r.read(obj);
         _routes.append(QSharedPointer<Route>(&r));
     }
+
+    loafFile.close();
 }
 
 void RouteDb::saveRoutes() {
@@ -76,13 +78,17 @@ void RouteDb::saveRoutes() {
 
     QJsonObject json;
     QJsonArray arr;
+
+    qDebug()<<"prior to cycle"<<endl;
     foreach (const QSharedPointer<Route> r, _routes) {
         QJsonObject obj;
         r.data()->write(obj);
         arr.append(obj);
     }
+    qDebug()<<"after the cycle"<<endl;
     json["routes"] = arr;
 
     QJsonDocument saveDoc(json);
     saveFile.write(saveDoc.toJson());
+    saveFile.close();
 }

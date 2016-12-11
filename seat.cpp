@@ -2,7 +2,7 @@
 #include <QDebug>
 Seat::Seat(int number):_seat_number(number),_is_available(true){
 #ifndef QT_NO_DEBUG
-    qDebug()<<"Seat is created"<<endl;
+    //qDebug()<<"Seat is created"<<endl;
 #endif
 
 }
