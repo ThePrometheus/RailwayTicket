@@ -1,9 +1,10 @@
 #include <QtWidgets>
+#include <QDebug>
 
 #include "seatwidget.h"
 
-SeatWidget::SeatWidget(QWidget *parent)
-    : QWidget(parent)
+SeatWidget::SeatWidget(const QVector<QString> &seats, QWidget *parent)
+    : QWidget(parent), _seats(seats)
 {
     squareSize = 24;
     columns = 16;
@@ -98,11 +99,17 @@ void SeatWidget::paintEvent(QPaintEvent *event)
 
     QFontMetrics fontMetrics(displayFont);
     painter.setPen(QPen(Qt::black));
+    //foreach (const QString& seat, _seats) {
+        qDebug() << _seats.size();
+    //}
+
     for (int row = beginRow; row <= endRow; ++row) {
 
         for (int column = beginColumn; column <= endColumn; ++column) {
 
             int key = row*columns + column;
+            if (key >= _seats.size() || key < 0) return;
+            const QString& seat = _seats.at(key);
             painter.setClipRect(column*squareSize, row*squareSize, squareSize, squareSize);
 
             if (key == lastKey)
@@ -110,7 +117,7 @@ void SeatWidget::paintEvent(QPaintEvent *event)
 
             painter.drawText(column*squareSize + (squareSize / 2) - fontMetrics.width(QChar(key))/2,
                              row*squareSize + 4 + fontMetrics.ascent(),
-                             QString(QChar(key)));
+                             seat);
         }
     }
 }

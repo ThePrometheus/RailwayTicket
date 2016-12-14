@@ -6,13 +6,14 @@
 #include <QSize>
 #include <QMouseEvent>
 #include <QString>
+#include <QVector>
 
 class SeatWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    SeatWidget(QWidget *parent = 0);
+    SeatWidget(const QVector<QString> &seats, QWidget *parent = 0);
     QSize sizeHint() const Q_DECL_OVERRIDE;
 
 public slots:
@@ -34,5 +35,8 @@ private:
     int columns;
     int lastKey;
     int squareSize;
+
+    // for debug
+    QVector<QString> _seats;
 };
 #endif // SEATWIDGET_H

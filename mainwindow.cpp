@@ -21,7 +21,13 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
     wagonCombo = new QComboBox;
 
     scrollArea = new QScrollArea;
-    seatWidget = new SeatWidget;
+    QVector<QString> seats(0);
+        for (char i = '0'; i <= '9'; ++i) {
+            QString str(i);
+            seats.push_back(str);
+        }
+    //seats.fill(str, 10);
+    seatWidget = new SeatWidget(seats);
     scrollArea->setWidget(seatWidget);
 
     bookButton = new QPushButton(tr("&Book seat"));
