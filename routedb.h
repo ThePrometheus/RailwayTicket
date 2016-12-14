@@ -11,7 +11,7 @@ class RouteDb
 {
 public:
     // only for debug
-    QVector<Route> _routes;
+    QVector<Route> *_routes;
     RouteDb(const QString& filename = QString::null, const QString& filename2 = QString::null);
     ~RouteDb();
 
@@ -28,7 +28,7 @@ private:
     QString _rdb_location;
     QString _tdb_location;
 
-    QVector<Ticket> _tickets;
+    QVector<Ticket> *_tickets;
 
     void loadRoutes();
 

@@ -6,7 +6,8 @@
 #include <QJsonArray>
 #include <QIODevice>
 
-RouteDb::RouteDb(const QString &filename, const QString &filename2) : _rdb_location(filename), _tdb_location(filename2)
+RouteDb::RouteDb(const QString &filename, const QString &filename2) : _rdb_location(filename),
+    _tdb_location(filename2), _routes(new QVector<Route>), _tickets(new QVector<Ticket>)
 {
     //if (_db_location != QString::null)
         //loadRoutes();
@@ -15,27 +16,30 @@ RouteDb::RouteDb(const QString &filename, const QString &filename2) : _rdb_locat
 RouteDb::~RouteDb() {
    // if (_db_location != QString::null)
         //saveRoutes();
-    _routes.clear();
+    _routes->clear();
+    _tickets->clear();
+    delete _tickets;
+    delete _routes;
 }
 
 void RouteDb::addRoute(const Route &r) {
     if (!contains(r))
-        _routes.append(r);
+        _routes->append(r);
 }
 
 bool RouteDb::contains(const Route &r) {
-    return _routes.contains(r);
+    return _routes->contains(r);
 }
 
 void RouteDb::removeRoute(const Route &r) {
-    _routes.removeOne(r);
+    _routes->removeOne(r);
 }
 
 const QVector<QSharedPointer<Route>> RouteDb::findRoutes(const QString &from, const QString &to) {
     QVector<QSharedPointer<Route>> res;
-    foreach (const Route& r, _routes) {
-        if (r.getDepartStation() == from && r.getArrivalStations().contains(to)) {
-            QSharedPointer ptr(&r);
+    for (size_t i = 0; i < _routes->size(); ++i) {
+        if (_routes->at(i).getDepartStation() == from && _routes->at(i).getArrivalStations().contains(to)) {
+            QSharedPointer<Route> ptr(&(_routes->data()[i]));
             res.append(ptr);
         }
     }
@@ -54,15 +58,14 @@ void RouteDb::loadRoutes() {
     QJsonObject json = loadDoc.object();
 
     QJsonArray routes = json["routes"].toArray();
-    _routes.clear();
+    _routes->clear();
     for (size_t i = 0; i < routes.size(); ++i) {
         QJsonObject obj = routes[i].toObject();
         QVector<QSharedPointer<Stops>> empty;
         Route r(QString::null, 0, 0, empty);
         r.read(obj);
-        qDebug() << "about to append " << rp->getDepartStation();
-        qDebug() << _routes.at(0);
-        _routes.push_back(r);
+        qDebug() << "about to append " << r.getDepartStation();
+        _routes->push_back(r);
     }
 
     qDebug() << "finished loading";
@@ -81,9 +84,9 @@ void RouteDb::saveRoutes() {
     QJsonArray arr;
 
     qDebug()<<"prior to cycle"<<endl;
-    foreach (const Route& r, _routes) {
+    for (size_t i = 0; i < _routes->size(); ++i) {
         QJsonObject obj;
-        r.write(obj);
+        _routes->at(i).write(obj);
         arr.append(obj);
     }
     qDebug()<<"after the cycle"<<endl;

@@ -102,7 +102,7 @@ void Route::read(const QJsonObject &json) {
     populateRoute(_route_size);
 }
 
-void Route::write(QJsonObject &json) {
+void Route::write(QJsonObject &json) const {
     json["departStation"] = _depart_station;
     json["routeId"] = _route_id;
     json["nStops"] = _nstops;
