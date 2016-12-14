@@ -15,7 +15,7 @@ public:
 
 public slots:
     void echoChanged(int);
-    void validatorChanged(int);
+    void discountChanged(int);
     void alignmentChanged(int);
     void inputMaskChanged(int);
     void accessChanged(int);
@@ -34,6 +34,8 @@ private:
     int _wagon;
     int _seat;
     int _date;
+
+    QString *_type;
 };
 
 #endif // TICKETWIDGET_H

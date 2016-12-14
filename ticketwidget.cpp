@@ -11,7 +11,8 @@ TicketWidget::TicketWidget(int pass,int train,int route,
                                                                            _seat(seat),
                                                                            _route(route),
                                                                            _wagon(wagon),
-                                                                           _date(date)
+                                                                           _date(date),
+                                                                           _type(new QString("adult"))
 {
     QGroupBox *nameGroup = new QGroupBox(tr("Name"));
 
@@ -34,6 +35,7 @@ TicketWidget::TicketWidget(int pass,int train,int route,
     idComboBox->addItem(tr("Elder ID#"));
     discountIdLineEdit = new QLineEdit;
     discountIdLineEdit->setPlaceholderText("Input ID#");
+    discountIdLineEdit->setReadOnly(true);
 
     priceLabel = new QLabel(tr("200 UAH"));
     QGroupBox *priceGroup = new QGroupBox(tr("Current price"));
@@ -43,7 +45,7 @@ TicketWidget::TicketWidget(int pass,int train,int route,
     bookButton = new QPushButton(tr("Book"));
 
     connect(idComboBox, SIGNAL(activated(int)),
-            this, SLOT(validatorChanged(int)));
+            this, SLOT(discountChanged(int)));
 
     QGridLayout *nameLayout = new QGridLayout;
     nameLayout->addWidget(nameLabel, 0, 0);
@@ -94,22 +96,32 @@ void TicketWidget::echoChanged(int index)
     }*/
 }
 
-void TicketWidget::validatorChanged(int index)
+void TicketWidget::discountChanged(int index)
 {
-   /* switch (index) {
+    switch (index) {
     case 0:
-        lastNameEdit->setValidator(0);
+        discountIdLineEdit->clear();
+        discountIdLineEdit->setReadOnly(true);
+        _type = new QString("adult");
         break;
     case 1:
-        lastNameEdit->setValidator(new QIntValidator(
-            lastNameEdit));
+        discountIdLineEdit->clear();
+        discountIdLineEdit->setReadOnly(false);
+        _type = new QString("student");
         break;
     case 2:
-        lastNameEdit->setValidator(new QDoubleValidator(-999.0,
-            999.0, 2, lastNameEdit));
+        discountIdLineEdit->clear();
+        discountIdLineEdit->setReadOnly(false);
+        _type = new QString("disabled");
+        break;
+    case 3:
+        discountIdLineEdit->clear();
+        discountIdLineEdit->setReadOnly(false);
+        _type = new QString("elder");
+        break;
     }
 
-    lastNameEdit->clear();*/
+    //lastNameEdit->clear();
 }
 
 void TicketWidget::alignmentChanged(int index)
