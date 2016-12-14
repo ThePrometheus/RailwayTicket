@@ -11,63 +11,45 @@
 #include <QDebug>
 #include <QHBoxLayout>
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrains(availableTrains)
 {
     QWidget *centralWidget = new QWidget;
 
     QLabel *fontLabel = new QLabel(tr("Train:"));
-    fontCombo = new QFontComboBox;
-    /*QLabel *sizeLabel = new QLabel(tr("Size:"));
-    sizeCombo = new QComboBox;
-    QLabel *styleLabel = new QLabel(tr("Style:"));
-    styleCombo = new QComboBox;
-    QLabel *fontMergingLabel = new QLabel(tr("Automatic Font Merging:"));
-    fontMerging = new QCheckBox;
-    fontMerging->setChecked(true);*/
+    trainCombo = new QComboBox;
+    QLabel *wagonLabel = new QLabel(tr("Wagon:"));
+    wagonCombo = new QComboBox;
 
     scrollArea = new QScrollArea;
     seatWidget = new SeatWidget;
     scrollArea->setWidget(seatWidget);
 
-    findStyles(fontCombo->currentFont());
-    findSizes(fontCombo->currentFont());
+    //findTrain(trainCombo->currentFont());
+  // findSeats(wagonCombog->currentFont());
 
-   /* lineEdit = new QLineEdit;
-#ifndef QT_NO_CLIPBOARD*/
-    clipboardButton = new QPushButton(tr("&Book seat"));
+    bookButton = new QPushButton(tr("&Book seat"));
 
-    /*clipboard = QApplication::clipboard();
-#endif*/
+    connect(trainCombo, SIGNAL(currentIndexChanged(QFont)),
+            this, SLOT(findTrain(QFont)));
+   // connect(trainCombo, SIGNAL(currentIndexChanged(QFont)),
+            //seatWidget, SLOT(updateFont(QFont)));
+    connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
+            seatWidget, SLOT(updateSize(QString)));
+    connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
+            seatWidget, SLOT(findSeats(QString)));
 
-    connect(fontCombo, SIGNAL(currentFontChanged(QFont)),
-            this, SLOT(findStyles(QFont)));
-    connect(fontCombo, SIGNAL(currentFontChanged(QFont)),
-            this, SLOT(findSizes(QFont)));
-    connect(fontCombo, SIGNAL(currentFontChanged(QFont)),
-            seatWidget, SLOT(updateFont(QFont)));
-
-//#ifndef QT_NO_CLIPBOARD
-    connect(clipboardButton, SIGNAL(clicked()), this, SLOT(fillSeat()));
-//#endif
-   // connect(fontMerging, SIGNAL(toggled(bool)), seatWidget, SLOT(updateFontMerging(bool)));*
+    connect(bookButton, SIGNAL(clicked()), this, SLOT(fillSeat()));
 
     QHBoxLayout *controlsLayout = new QHBoxLayout;
     controlsLayout->addWidget(fontLabel);
-    controlsLayout->addWidget(fontCombo, 1);
-   /* controlsLayout->addWidget(sizeLabel);
-    controlsLayout->addWidget(sizeCombo, 1);
-    controlsLayout->addWidget(styleLabel);
-    controlsLayout->addWidget(styleCombo, 1);
-    controlsLayout->addWidget(fontMergingLabel);
-    controlsLayout->addWidget(fontMerging, 1);*/
+    controlsLayout->addWidget(trainCombo, 1);
+    controlsLayout->addWidget(wagonLabel);
+    controlsLayout->addWidget(wagonCombo, 1);
     controlsLayout->addStretch(1);
 
     QHBoxLayout *lineLayout = new QHBoxLayout;
-   // lineLayout->addWidget(lineEdit, 1);
     lineLayout->addSpacing(12);
-//#ifndef QT_NO_CLIPBOARD
-    lineLayout->addWidget(clipboardButton);
-//#endif
+    lineLayout->addWidget(bookButton);
 
     QVBoxLayout *centralLayout = new QVBoxLayout;
     centralLayout->addLayout(controlsLayout);
@@ -80,9 +62,8 @@ MainWindow::MainWindow()
     setWindowTitle(tr("Buy the Ticket"));
 }
 
-void MainWindow::findStyles(const QFont &font)
+void MainWindow::findTrain(const QString &font)
 {
-    QFontDatabase fontDatabase;
    /* QString currentItem = styleCombo->currentText();
     styleCombo->clear();
 
@@ -98,9 +79,8 @@ void MainWindow::findStyles(const QFont &font)
         styleCombo->setCurrentIndex(styleIndex);*/
 }
 
-void MainWindow::findSizes(const QFont &font)
+void MainWindow::findSeats(const QString &font)
 {
-    QFontDatabase fontDatabase;
     /*QString currentSize = sizeCombo->currentText();
     sizeCombo->blockSignals(true);
     sizeCombo->clear();

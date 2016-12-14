@@ -10,6 +10,7 @@
 #include <QScrollArea>
 #include <QCheckBox>
 #include <QPushButton>
+#include <QVector>
 #include "seatwidget.h"
 
 class MainWindow : public QMainWindow
@@ -17,28 +18,22 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow();
+    // vector of strings while the data model isn't working properly
+    MainWindow(const QVector<QString>& availableTrains);
 
 public slots:
-    void findStyles(const QFont &font);
-    void findSizes(const QFont &font);
+    void findTrain(const QString &font);
+    void findSeats(const QString &font);
     void fillSeat();
-/*#ifndef QT_NO_CLIPBOARD
-    void updateClipboard();
-#endif*/
-
 private:
     SeatWidget *seatWidget;
-/*#ifndef QT_NO_CLIPBOARD
-    QClipboard *clipboard;
-#endif*/
-    //QComboBox *styleCombo;
-    //QComboBox *sizeCombo;
-    QFontComboBox *fontCombo;
-    QLineEdit *lineEdit;
+    QComboBox *trainCombo;
+    QComboBox *wagonCombo;
+   // QLineEdit *lineEdit;
     QScrollArea *scrollArea;
-    QCheckBox *fontMerging;
-    QPushButton *clipboardButton;
+   // QCheckBox *fontMerging;
+    QPushButton *bookButton;
+    const QVector<QString>& _availableTrains;
 };
 
 #endif // MAINWINDOW_H
