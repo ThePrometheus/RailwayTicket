@@ -56,11 +56,11 @@ void SeatWidget::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint widgetPosition = mapFromGlobal(event->globalPos());
     uint key = (widgetPosition.y()/squareSize)*columns + widgetPosition.x()/squareSize;
-
-    QString text = QString::fromLatin1("<p>Character: <span style=\"font-size: 24pt; font-family: %1\">").arg(displayFont.family())
-                  + QChar(key)
-                  + QString::fromLatin1("</span><p>Value: 0x")
-                  + QString::number(key, 16);
+    if (key >= _seats.size()) return;
+    QString text = QString::fromLatin1("<p>Seat: <span style=\"font-size: 24pt; font-family: %1\">").arg(displayFont.family())
+                  + _seats.at(key)
+                  + QString::fromLatin1("</span><p>Full price: ")
+                  + QString("200 UAH");
     QToolTip::showText(event->globalPos(), text, this);
 }
 
