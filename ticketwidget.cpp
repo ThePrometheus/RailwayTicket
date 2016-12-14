@@ -19,10 +19,10 @@ TicketWidget::TicketWidget(int pass,int train,int route,
     QLabel *lastNameLabel = new QLabel(tr("Last Name:"));
 
     nameEdit = new QLineEdit;
-    nameEdit->setPlaceholderText("Input name");
+    nameEdit->setPlaceholderText("Input first name");
     nameEdit->setFocus();
     lastNameEdit = new QLineEdit;
-    lastNameEdit->setPlaceholderText("Placeholder Text");
+    lastNameEdit->setPlaceholderText("Input last name");
 
     QGroupBox *discountGroup = new QGroupBox(tr("Use a discount"));
 
@@ -48,7 +48,8 @@ TicketWidget::TicketWidget(int pass,int train,int route,
     QGridLayout *nameLayout = new QGridLayout;
     nameLayout->addWidget(nameLabel, 0, 0);
     nameLayout->addWidget(nameEdit, 1, 0, 1, 2);
-    nameLayout->addWidget(lastNameEdit, 1, 0, 2, 2);
+    nameLayout->addWidget(lastNameLabel, 2, 0);
+    nameLayout->addWidget(lastNameEdit, 3, 0, 1, 3);
     nameGroup->setLayout(nameLayout);
 
     QGridLayout *discountLayout = new QGridLayout;
@@ -70,7 +71,7 @@ TicketWidget::TicketWidget(int pass,int train,int route,
     layout->addWidget(discountGroup, 1, 0);
     layout->addWidget(priceGroup, 2, 0);
    // layout->addWidget(priceGroup, 0, 1);
-    layout->addWidget(bookGroup, 1, 1);
+    layout->addWidget(bookGroup, 3, 0);
     setLayout(layout);
 
     setWindowTitle(tr("Ticket"));
