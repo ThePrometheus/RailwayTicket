@@ -13,153 +13,107 @@ TicketWidget::TicketWidget(int pass,int train,int route,
                                                                            _wagon(wagon),
                                                                            _date(date)
 {
-    QGroupBox *echoGroup = new QGroupBox(tr("Echo"));
+    QGroupBox *nameGroup = new QGroupBox(tr("Name"));
 
-    QLabel *echoLabel = new QLabel(tr("Mode:"));
-    QComboBox *echoComboBox = new QComboBox;
-    echoComboBox->addItem(tr("Normal"));
-    echoComboBox->addItem(tr("Password"));
-    echoComboBox->addItem(tr("PasswordEchoOnEdit"));
-    echoComboBox->addItem(tr("No Echo"));
+    QLabel *nameLabel = new QLabel(tr("First Name:"));
+    QLabel *lastNameLabel = new QLabel(tr("Last Name:"));
 
-    echoLineEdit = new QLineEdit;
-    echoLineEdit->setPlaceholderText("Placeholder Text");
-    echoLineEdit->setFocus();
+    nameEdit = new QLineEdit;
+    nameEdit->setPlaceholderText("Input name");
+    nameEdit->setFocus();
+    lastNameEdit = new QLineEdit;
+    lastNameEdit->setPlaceholderText("Placeholder Text");
 
-    QGroupBox *validatorGroup = new QGroupBox(tr("Validator"));
+    QGroupBox *discountGroup = new QGroupBox(tr("Use a discount"));
 
-    QLabel *validatorLabel = new QLabel(tr("Type:"));
-    QComboBox *validatorComboBox = new QComboBox;
-    validatorComboBox->addItem(tr("No validator"));
-    validatorComboBox->addItem(tr("Integer validator"));
-    validatorComboBox->addItem(tr("Double validator"));
+    QLabel *discountLabel = new QLabel(tr("Type:"));
+    QComboBox *idComboBox = new QComboBox;
+    idComboBox->addItem(tr("None"));
+    idComboBox->addItem(tr("Student ID#"));
+    idComboBox->addItem(tr("Disabled ID#"));
+    idComboBox->addItem(tr("Elder ID#"));
+    discountIdLineEdit = new QLineEdit;
+    discountIdLineEdit->setPlaceholderText("Input ID#");
 
-    validatorLineEdit = new QLineEdit;
-    validatorLineEdit->setPlaceholderText("Placeholder Text");
+    priceLabel = new QLabel(tr("200 UAH"));
+    QGroupBox *priceGroup = new QGroupBox(tr("Current price"));
 
-    QGroupBox *alignmentGroup = new QGroupBox(tr("Alignment"));
+    QGroupBox *bookGroup = new QGroupBox(tr(""));
 
-    QLabel *alignmentLabel = new QLabel(tr("Type:"));
-    QComboBox *alignmentComboBox = new QComboBox;
-    alignmentComboBox->addItem(tr("Left"));
-    alignmentComboBox->addItem(tr("Centered"));
-    alignmentComboBox->addItem(tr("Right"));
+    bookButton = new QPushButton(tr("Book"));
 
-    alignmentLineEdit = new QLineEdit;
-    alignmentLineEdit->setPlaceholderText("Placeholder Text");
-
-    QGroupBox *inputMaskGroup = new QGroupBox(tr("Input mask"));
-
-    QLabel *inputMaskLabel = new QLabel(tr("Type:"));
-    QComboBox *inputMaskComboBox = new QComboBox;
-    inputMaskComboBox->addItem(tr("No mask"));
-    inputMaskComboBox->addItem(tr("Phone number"));
-    inputMaskComboBox->addItem(tr("ISO date"));
-    inputMaskComboBox->addItem(tr("License key"));
-
-    inputMaskLineEdit = new QLineEdit;
-    inputMaskLineEdit->setPlaceholderText("Placeholder Text");
-
-    QGroupBox *accessGroup = new QGroupBox(tr("Access"));
-
-    QLabel *accessLabel = new QLabel(tr("Read-only:"));
-    QComboBox *accessComboBox = new QComboBox;
-    accessComboBox->addItem(tr("False"));
-    accessComboBox->addItem(tr("True"));
-
-    accessLineEdit = new QLineEdit;
-    accessLineEdit->setPlaceholderText("Placeholder Text");
-
-    connect(echoComboBox, SIGNAL(activated(int)),
-            this, SLOT(echoChanged(int)));
-    connect(validatorComboBox, SIGNAL(activated(int)),
+    connect(idComboBox, SIGNAL(activated(int)),
             this, SLOT(validatorChanged(int)));
-    connect(alignmentComboBox, SIGNAL(activated(int)),
-            this, SLOT(alignmentChanged(int)));
-    connect(inputMaskComboBox, SIGNAL(activated(int)),
-            this, SLOT(inputMaskChanged(int)));
-    connect(accessComboBox, SIGNAL(activated(int)),
-            this, SLOT(accessChanged(int)));
 
-    QGridLayout *echoLayout = new QGridLayout;
-    echoLayout->addWidget(echoLabel, 0, 0);
-    echoLayout->addWidget(echoComboBox, 0, 1);
-    echoLayout->addWidget(echoLineEdit, 1, 0, 1, 2);
-    echoGroup->setLayout(echoLayout);
+    QGridLayout *nameLayout = new QGridLayout;
+    nameLayout->addWidget(nameLabel, 0, 0);
+    nameLayout->addWidget(nameEdit, 1, 0, 1, 2);
+    nameLayout->addWidget(lastNameEdit, 1, 0, 2, 2);
+    nameGroup->setLayout(nameLayout);
 
-    QGridLayout *validatorLayout = new QGridLayout;
-    validatorLayout->addWidget(validatorLabel, 0, 0);
-    validatorLayout->addWidget(validatorComboBox, 0, 1);
-    validatorLayout->addWidget(validatorLineEdit, 1, 0, 1, 2);
-    validatorGroup->setLayout(validatorLayout);
+    QGridLayout *discountLayout = new QGridLayout;
+    discountLayout->addWidget(discountLabel, 0, 0);
+    discountLayout->addWidget(idComboBox, 0, 1);
+    discountLayout->addWidget(discountIdLineEdit, 1, 0, 1, 2);
+    discountGroup->setLayout(discountLayout);
 
-    QGridLayout *alignmentLayout = new QGridLayout;
-    alignmentLayout->addWidget(alignmentLabel, 0, 0);
-    alignmentLayout->addWidget(alignmentComboBox, 0, 1);
-    alignmentLayout->addWidget(alignmentLineEdit, 1, 0, 1, 2);
-    alignmentGroup-> setLayout(alignmentLayout);
+    QGridLayout *priceLabelLayout = new QGridLayout;
+    priceLabelLayout->addWidget(priceLabel, 0, 0);
+    priceGroup->setLayout(priceLabelLayout);
 
-    QGridLayout *inputMaskLayout = new QGridLayout;
-    inputMaskLayout->addWidget(inputMaskLabel, 0, 0);
-    inputMaskLayout->addWidget(inputMaskComboBox, 0, 1);
-    inputMaskLayout->addWidget(inputMaskLineEdit, 1, 0, 1, 2);
-    inputMaskGroup->setLayout(inputMaskLayout);
-
-    QGridLayout *accessLayout = new QGridLayout;
-    accessLayout->addWidget(accessLabel, 0, 0);
-    accessLayout->addWidget(accessComboBox, 0, 1);
-    accessLayout->addWidget(accessLineEdit, 1, 0, 1, 2);
-    accessGroup->setLayout(accessLayout);
+    QGridLayout *bookLayout = new QGridLayout;
+    bookLayout->addWidget(bookButton, 0, 0);
+    bookGroup->setLayout(bookLayout);
 
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(echoGroup, 0, 0);
-    layout->addWidget(validatorGroup, 1, 0);
-    layout->addWidget(alignmentGroup, 2, 0);
-    layout->addWidget(inputMaskGroup, 0, 1);
-    layout->addWidget(accessGroup, 1, 1);
+    layout->addWidget(nameGroup, 0, 0);
+    layout->addWidget(discountGroup, 1, 0);
+    layout->addWidget(priceGroup, 2, 0);
+   // layout->addWidget(priceGroup, 0, 1);
+    layout->addWidget(bookGroup, 1, 1);
     setLayout(layout);
 
-    setWindowTitle(tr("Line Edits"));
+    setWindowTitle(tr("Ticket"));
 }
 
 void TicketWidget::echoChanged(int index)
 {
-    switch (index) {
+   /* switch (index) {
     case 0:
-        echoLineEdit->setEchoMode(QLineEdit::Normal);
+        nameEdit->setEchoMode(QLineEdit::Normal);
         break;
     case 1:
-        echoLineEdit->setEchoMode(QLineEdit::Password);
+        nameEdit->setEchoMode(QLineEdit::Password);
         break;
     case 2:
-        echoLineEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
+        nameEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
         break;
     case 3:
-        echoLineEdit->setEchoMode(QLineEdit::NoEcho);
-    }
+        nameEdit->setEchoMode(QLineEdit::NoEcho);
+    }*/
 }
 
 void TicketWidget::validatorChanged(int index)
 {
-    switch (index) {
+   /* switch (index) {
     case 0:
-        validatorLineEdit->setValidator(0);
+        lastNameEdit->setValidator(0);
         break;
     case 1:
-        validatorLineEdit->setValidator(new QIntValidator(
-            validatorLineEdit));
+        lastNameEdit->setValidator(new QIntValidator(
+            lastNameEdit));
         break;
     case 2:
-        validatorLineEdit->setValidator(new QDoubleValidator(-999.0,
-            999.0, 2, validatorLineEdit));
+        lastNameEdit->setValidator(new QDoubleValidator(-999.0,
+            999.0, 2, lastNameEdit));
     }
 
-    validatorLineEdit->clear();
+    lastNameEdit->clear();*/
 }
 
 void TicketWidget::alignmentChanged(int index)
 {
-    switch (index) {
+   /* switch (index) {
     case 0:
         alignmentLineEdit->setAlignment(Qt::AlignLeft);
         break;
@@ -168,36 +122,36 @@ void TicketWidget::alignmentChanged(int index)
         break;
     case 2:
         alignmentLineEdit->setAlignment(Qt::AlignRight);
-    }
+    }*/
 }
 
 void TicketWidget::inputMaskChanged(int index)
 {
-    switch (index) {
+   /* switch (index) {
     case 0:
-        inputMaskLineEdit->setInputMask("");
+        discountIdLineEdit->setInputMask("");
         break;
     case 1:
-        inputMaskLineEdit->setInputMask("+99 99 99 99 99;_");
+        discountIdLineEdit->setInputMask("+99 99 99 99 99;_");
         break;
     case 2:
-        inputMaskLineEdit->setInputMask("0000-00-00");
-        inputMaskLineEdit->setText("00000000");
-        inputMaskLineEdit->setCursorPosition(0);
+        discountIdLineEdit->setInputMask("0000-00-00");
+        discountIdLineEdit->setText("00000000");
+        discountIdLineEdit->setCursorPosition(0);
         break;
     case 3:
-        inputMaskLineEdit->setInputMask(">AAAAA-AAAAA-AAAAA-AAAAA-AAAAA;#");
-    }
+        discountIdLineEdit->setInputMask(">AAAAA-AAAAA-AAAAA-AAAAA-AAAAA;#");
+    }*/
 }
 
 void TicketWidget::accessChanged(int index)
 {
-    switch (index) {
+    /*switch (index) {
     case 0:
         accessLineEdit->setReadOnly(false);
         break;
     case 1:
         accessLineEdit->setReadOnly(true);
-    }
+    }*/
 }
 

@@ -2,7 +2,9 @@
 #define TICKETWIDGET_H
 
 #include <QWidget>
+#include <QLabel>
 #include <QLineEdit>
+#include <QPushButton>
 
 class TicketWidget : public QWidget
 {
@@ -19,11 +21,12 @@ public slots:
     void accessChanged(int);
 
 private:
-    QLineEdit *echoLineEdit;
-    QLineEdit *validatorLineEdit;
-    QLineEdit *alignmentLineEdit;
-    QLineEdit *inputMaskLineEdit;
-    QLineEdit *accessLineEdit;
+    QLineEdit *nameEdit;
+    QLineEdit *lastNameEdit;
+    QLabel *priceLabel;
+    QLineEdit *discountIdLineEdit;
+    //QLineEdit *accessLineEdit;
+    QPushButton *bookButton;
 
     int _pass;
     int _train;
