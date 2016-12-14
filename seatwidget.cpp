@@ -68,8 +68,8 @@ void SeatWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
         lastKey = (event->y()/squareSize)*columns + event->x()/squareSize;
-        if (QChar(lastKey).category() != QChar::Other_NotAssigned)
-            emit seatSelected(QString(QChar(lastKey)));
+        if (lastKey <= _seats.size())
+            emit seatSelected(_seats.at(lastKey));
         update();
     }
     else
