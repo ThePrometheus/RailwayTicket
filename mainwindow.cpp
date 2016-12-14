@@ -24,19 +24,14 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
     seatWidget = new SeatWidget;
     scrollArea->setWidget(seatWidget);
 
-    //findTrain(trainCombo->currentFont());
-  // findSeats(wagonCombog->currentFont());
-
     bookButton = new QPushButton(tr("&Book seat"));
 
     connect(trainCombo, SIGNAL(currentIndexChanged(QString)),
             this, SLOT(findWagons(QString)));
-   // connect(trainCombo, SIGNAL(currentIndexChanged(QFont)),
-            //seatWidget, SLOT(updateFont(QFont)));
-  //  connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
-          //  seatWidget, SLOT(updateSize(QString)));
     connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
-            seatWidget, SLOT(findSeats(QString)));
+            this, SLOT(findSeats(QString)));
+    connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
+             seatWidget, SLOT(updateSeats(QString)));
 
     connect(bookButton, SIGNAL(clicked()), this, SLOT(fillSeat()));
 
@@ -70,7 +65,8 @@ void MainWindow::init()
         if (!train.isEmpty() && !train.isNull())
             trainCombo->addItem(train);
     }
-    trainCombo->setCurrentIndex(0);
+    if (_availableTrains.size() > 0)
+        trainCombo->setCurrentIndex(0);
 }
 
 void MainWindow::findWagons(const QString &font)
@@ -96,7 +92,8 @@ void MainWindow::findWagons(const QString &font)
         if (!w.isEmpty() && !w.isNull())
             wagonCombo->addItem(w);
     }
-    wagonCombo->setCurrentIndex(0);
+    if (wagons.size() > 0)
+        wagonCombo->setCurrentIndex(0);
 }
 
 void MainWindow::findSeats(const QString &font)

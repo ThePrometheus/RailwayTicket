@@ -16,13 +16,13 @@ public:
     QSize sizeHint() const Q_DECL_OVERRIDE;
 
 public slots:
-    void updateFont(const QFont &font);
-    void updateSize(const QString &fontSize);
-    void updateStyle(const QString &fontStyle);
-    void updateFontMerging(bool enable);
+  //  void updateFont(const QString &font);
+    void updateSeats(const QString &seats);
+   // void updateStyle(const QString &fontStyle);
+   // void updateFontMerging(bool enable);
 
 signals:
-    void seatSelected(const QString &character);
+    void seatSelected(const QString &seat);
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
