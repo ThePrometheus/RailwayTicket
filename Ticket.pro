@@ -25,7 +25,9 @@ SOURCES += main.cpp \
     bahn.cpp \
     passenger.cpp \
     routedb.cpp \
-    findroutewindow.cpp
+    findroutewindow.cpp \
+    seatwidget.cpp \
+    mainwindow.cpp
 
 HEADERS += \
     ticket.h \
@@ -42,4 +44,6 @@ HEADERS += \
     station.h \
     bahn.h \
     routedb.h \
-    findroutewindow.h
+    findroutewindow.h \
+    seatwidget.h \
+    mainwindow.h

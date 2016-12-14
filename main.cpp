@@ -14,9 +14,9 @@
 #include "bahn.h"
 #include "passenger.h"
 #include "routedb.h"
-
 // GUI
 #include "findroutewindow.h"
+#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 { /*QString pname= "Nazar";
@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
     Bahn bahn ;*/
     
     
-    Station s("frankfurt");
+   // Station s("frankfurt");
     /* bahn.addStation(&s);
     QSharedPointer<Station> ss = bahn.findDepartStation(s.getStationName());*/
     
-    QVector<QSharedPointer<Stops>> st(3);
+   /* QVector<QSharedPointer<Stops>> st(3);
     for(int i=0;i<3;++i){
         Stops s(2000+i,"Kiev");
         qDebug()<<s.getDate()<<endl;
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
    /* for(int i=0;i<2;++i){
         qDebug()<<"test:"<<st.at(i)->getDate()<<endl;
     }*/
-    qDebug() << "end of test 1";
+   /* qDebug() << "end of test 1";
     
     Route r (s.getStationName(),1,2,st);
     QSharedPointer<Route> route1(&r);
@@ -86,8 +86,11 @@ qDebug()<<et2.getTicketId()<<endl;
     // pass.addTicket(t);
     
     QApplication a(argc, argv);
-    FindRouteWindow frwindow;
-    frwindow.show();
+    //FindRouteWindow frwindow;
+   // frwindow.show();
+
+    MainWindow window;
+    window.show();
     
     return a.exec();
 }
