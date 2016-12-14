@@ -10,7 +10,7 @@ private:
     int _train_id;
     int _date;
     int _train_size;
-    QVector<QSharedPointer<Wagon>>  _wagons;
+    QVector<Wagon>* _wagons;
     virtual void populateTrain(int number);
     virtual void depopulateTrain();
     Train(const Train&);

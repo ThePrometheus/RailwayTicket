@@ -10,23 +10,24 @@ private:
     int _wagon_number;
     int _wagon_size;
     QString _info;
-    QVector<QSharedPointer<Seat>> _seats;
-    Wagon(const Wagon&);
-    Wagon&operator=(const Wagon&);
+    QVector<Seat>* _seats;
     void populateWagon(int number);
     void depopulateWagon();
 
 public:
     Wagon(int number=0, int numberOfSeats=20);
     ~Wagon();
+    Wagon(const Wagon&);
+    Wagon&operator=(const Wagon&);
     const QString& print();
 
-  const   QSharedPointer<Seat>& getSeat(int i);
+  const   QSharedPointer<Seat>& getSeat(int i) const;
+  const int getNumber() const {return _wagon_number;}
+  const int getSize() const {return _wagon_size;}
     void changeNumber(int i);
 
-
-
-
 };
+
+bool operator ==(const Wagon& w1, const Wagon& w2);
 
 #endif // WAGON_H
