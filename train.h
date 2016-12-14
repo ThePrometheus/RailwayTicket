@@ -16,18 +16,12 @@ private:
     Train(const Train&);
     Train&operator=(const Train&);
 public:
-    Train(int id,int date=20,int number_of_wagons=16);
+    Train(int id,int date=2016,int number_of_wagons=16);
     ~Train();
     inline const   int getId() const{return _train_id;}
     inline  const int getDate()const {return _date;}
-    const QSharedPointer<Wagon>& getWagon(int i);
+    const QSharedPointer<Wagon>& getWagon(int i) const;
     void setDate(int date){_date=date;}
-
-
-    //void setSize(int size);
-
-
-
 
 };
 

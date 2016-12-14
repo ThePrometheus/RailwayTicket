@@ -33,7 +33,7 @@ void Train::depopulateTrain(){
     _wagons.clear();
 
 }
-const QSharedPointer<Wagon>& Train::getWagon(int i){
+const QSharedPointer<Wagon>& Train::getWagon(int i) const{
     if(i>=0&&i<_train_size)return _wagons.at(i);
 
 }
