@@ -15,13 +15,13 @@ public:
     void read(const QJsonObject &json);
     void write(QJsonObject &json) const;
 
-    QString print(){
+    QString print() const{
         QString res;
         res+=" Ticket: "+QString::number(_ticket_id);
 
-        res+=" Destination: "+_first_name;
+        res+=" First Name: "+_first_name;
 
-        res+=" Arrival: "+_last_name;
+        res+=" Last Name: "+_last_name;
 
         res+=" Passenger id: "+QString::number(_passenger_id);
 

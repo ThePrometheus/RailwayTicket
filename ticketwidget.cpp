@@ -141,6 +141,6 @@ void TicketWidget::bookPressed()
         break;
     }
 
-    emit seatBooked();
+    emit seatBooked(*_ticket);
     this->close();
 }

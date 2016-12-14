@@ -145,15 +145,15 @@ void MainWindow::bookTicket()
     if (_currSeat == QString::null) return;
     ticketWidget = new TicketWidget(trainCombo->currentText().toInt(),
                                     _route, wagonCombo->currentText().toInt(), _currSeat.toInt(), _date);
-    connect(ticketWidget, SIGNAL(seatBooked()), this, SLOT(fillSeat()));
+    connect(ticketWidget, SIGNAL(seatBooked(Ticket)), this, SLOT(fillSeat(Ticket)));
     ticketWidget->show();
 }
 
-void MainWindow::fillSeat()
+void MainWindow::fillSeat(const Ticket &t)
 {
     QMessageBox msgBox;
     if (_currSeat != QString::null)
-        msgBox.setText(_currSeat);
+        msgBox.setText(t.print());
     else msgBox.setText("N/A");
     msgBox.exec();
 }

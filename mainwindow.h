@@ -27,7 +27,7 @@ public slots:
     void findSeats(const QString &font);
     void chooseSeat(const QString &seat);
     void bookTicket();
-    void fillSeat();
+    void fillSeat(const Ticket&);
 private:
     void init();
 

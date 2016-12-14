@@ -23,7 +23,7 @@ public slots:
     void bookPressed();
 
 signals:
-    void seatBooked();
+    void seatBooked(const Ticket&);
 
 private:
     QLineEdit *nameEdit;
