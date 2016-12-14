@@ -22,10 +22,12 @@ public:
     MainWindow(const QVector<QString>& availableTrains);
 
 public slots:
-    void findTrain(const QString &font);
+    void findWagons(const QString &font);
     void findSeats(const QString &font);
     void fillSeat();
 private:
+    void init();
+
     SeatWidget *seatWidget;
     QComboBox *trainCombo;
     QComboBox *wagonCombo;

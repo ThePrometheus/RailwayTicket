@@ -15,7 +15,7 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
 {
     QWidget *centralWidget = new QWidget;
 
-    QLabel *fontLabel = new QLabel(tr("Train:"));
+    QLabel *trainLabel = new QLabel(tr("Train:"));
     trainCombo = new QComboBox;
     QLabel *wagonLabel = new QLabel(tr("Wagon:"));
     wagonCombo = new QComboBox;
@@ -29,19 +29,19 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
 
     bookButton = new QPushButton(tr("&Book seat"));
 
-    connect(trainCombo, SIGNAL(currentIndexChanged(QFont)),
-            this, SLOT(findTrain(QFont)));
+    connect(trainCombo, SIGNAL(currentIndexChanged(QString)),
+            this, SLOT(findWagons(QString)));
    // connect(trainCombo, SIGNAL(currentIndexChanged(QFont)),
             //seatWidget, SLOT(updateFont(QFont)));
-    connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
-            seatWidget, SLOT(updateSize(QString)));
+  //  connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
+          //  seatWidget, SLOT(updateSize(QString)));
     connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
             seatWidget, SLOT(findSeats(QString)));
 
     connect(bookButton, SIGNAL(clicked()), this, SLOT(fillSeat()));
 
     QHBoxLayout *controlsLayout = new QHBoxLayout;
-    controlsLayout->addWidget(fontLabel);
+    controlsLayout->addWidget(trainLabel);
     controlsLayout->addWidget(trainCombo, 1);
     controlsLayout->addWidget(wagonLabel);
     controlsLayout->addWidget(wagonCombo, 1);
@@ -60,9 +60,20 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
 
     setCentralWidget(centralWidget);
     setWindowTitle(tr("Buy the Ticket"));
+
+    init();
 }
 
-void MainWindow::findTrain(const QString &font)
+void MainWindow::init()
+{
+    foreach (const QString& train, _availableTrains) {
+        if (!train.isEmpty() && !train.isNull())
+            trainCombo->addItem(train);
+    }
+    trainCombo->setCurrentIndex(0);
+}
+
+void MainWindow::findWagons(const QString &font)
 {
    /* QString currentItem = styleCombo->currentText();
     styleCombo->clear();
@@ -77,6 +88,15 @@ void MainWindow::findTrain(const QString &font)
         styleCombo->setCurrentIndex(0);
     else
         styleCombo->setCurrentIndex(styleIndex);*/
+
+    QVector<QString> wagons(2);
+    wagons.append(QString("w1"));
+    wagons.append(QString("w2"));
+    foreach (const QString& w, wagons) {
+        if (!w.isEmpty() && !w.isNull())
+            wagonCombo->addItem(w);
+    }
+    wagonCombo->setCurrentIndex(0);
 }
 
 void MainWindow::findSeats(const QString &font)

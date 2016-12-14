@@ -89,10 +89,6 @@ qDebug()<<et2.getTicketId()<<endl;
     FindRouteWindow frwindow;
     frwindow.show();
 
-
-  //  MainWindow window(v);
-  //  window.show();
-    
     return a.exec();
 }
 
