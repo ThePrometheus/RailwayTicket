@@ -86,15 +86,12 @@ qDebug()<<et2.getTicketId()<<endl;
     // pass.addTicket(t);
     
     QApplication a(argc, argv);
-    //FindRouteWindow frwindow;
-   // frwindow.show();
+    FindRouteWindow frwindow;
+    frwindow.show();
 
-    QVector<QString> v(2);
-    v.append(QString("test1"));
-    v.append(QString("test2"));
 
-    MainWindow window(v);
-    window.show();
+  //  MainWindow window(v);
+  //  window.show();
     
     return a.exec();
 }

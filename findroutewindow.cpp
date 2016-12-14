@@ -77,9 +77,17 @@ void FindRouteWindow::handleRoute() {
         qDebug() << "in handler";
     }*/
 
-    QMessageBox msgBox;
-    msgBox.setText("Sorry, there are no available trains at the moment.");
-    msgBox.exec();
+    if (true) {
+        QVector<QString> v(2);
+        v.append(QString("test1"));
+        v.append(QString("test2"));
+        window = new MainWindow(v);
+        window->show();
+    } else {
+        QMessageBox msgBox;
+        msgBox.setText("Sorry, there are no available trains at the moment.");
+        msgBox.exec();
+    }
 }
 
 void FindRouteWindow::setupModel()

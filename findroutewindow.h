@@ -14,6 +14,7 @@
 #include <QVector>
 
 #include "routedb.h"
+#include "mainwindow.h"
 
 class QComboBox;
 class QDataWidgetMapper;
@@ -50,6 +51,7 @@ private:
 
     QStandardItemModel *model;
    // QStringListModel *typeModel;
+    MainWindow *window;
     QDataWidgetMapper *mapper;
 
     RouteDb _rdb;
