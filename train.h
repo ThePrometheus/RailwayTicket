@@ -23,9 +23,7 @@ public:
     const QSharedPointer<Wagon>& getWagon(int i);
     void setDate(int date){_date=date;}
 
-    // JSON read/write
-    void read(const QJsonObject &json);
-    void write(QJsonObject &json);
+
     //void setSize(int size);
 
 

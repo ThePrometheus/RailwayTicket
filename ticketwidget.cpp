@@ -6,9 +6,8 @@
 #include <QDebug>
 #include <QMessageBox>
 
-TicketWidget::TicketWidget(int pass,int train,int route,
+TicketWidget::TicketWidget(int train,int route,
                            int wagon,int seat,int date, QWidget *parent) : QWidget(parent),
-    _pass(pass),
     _train(train),
     _seat(seat),
     _route(route),
@@ -110,6 +109,7 @@ void TicketWidget::bookPressed()
 {
     const QString fname(nameEdit->text());
     const QString lname(lastNameEdit->text());
+    int id = -1;
 
     if (fname.isEmpty() || lname.isEmpty()) {
         QMessageBox msgBox;
@@ -122,20 +122,22 @@ void TicketWidget::bookPressed()
         msgBox.setText("Input your ID number");
         msgBox.exec();
         return;
+    } else {
+        id = discountIdLineEdit->text().toInt();
     }
 
     switch (_type) {
     case 0:
-        _ticket = new FullTicket(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
+        _ticket = new FullTicket(fname, lname, id, _train, _route, _wagon, _seat, _date);
         break;
     case 1:
-        _ticket = new StudentTicket(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
+        _ticket = new StudentTicket(fname, lname, id, _train, _route, _wagon, _seat, _date);
         break;
     case 2:
-        _ticket = new TicketForDisabled(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
+        _ticket = new TicketForDisabled(fname, lname, id, _train, _route, _wagon, _seat, _date);
         break;
     case 3:
-        _ticket = new ElderTicket(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
+        _ticket = new ElderTicket(fname, lname, id, _train, _route, _wagon, _seat, _date);
         break;
     }
 

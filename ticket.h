@@ -3,20 +3,25 @@
 #include <QString>
 #include <QTextStream>
 #include <QDebug>
+#include <QJsonObject>
 class Ticket {
     static int ticketId;
 public:
 
-    Ticket(QString dname,QString aname,int pass,int train,int route,
-           int wagon,int seat,int date,QString type="null",int discount=0,int type_id=0);
+    Ticket(QString dname = "NA",QString aname ="NA",int pass=0,int train=0,int route=0,
+           int wagon=0,int seat=0,int date=0,QString type="null",int discount=0,int type_id=0);
+
+    // JSON read/write
+    void read(const QJsonObject &json);
+    void write(QJsonObject &json) const;
 
     QString print(){
         QString res;
         res+=" Ticket: "+QString::number(_ticket_id);
 
-        res+=" Destination: "+_dest_name;
+        res+=" Destination: "+_first_name;
 
-        res+=" Arrival: "+_arrival_station;
+        res+=" Arrival: "+_last_name;
 
         res+=" Passenger id: "+QString::number(_passenger_id);
 
@@ -43,8 +48,8 @@ public:
     //IT SHOULD BE PURE VIRTUAL !!
     virtual ~Ticket(){};
 
-    QString getDestName() const {return _dest_name;}
-    QString getArrivalName() const{return _arrival_station;}
+    QString getDestName() const {return _first_name;}
+    QString getArrivalName() const{return _last_name;}
     int getPassengerId() const{return _passenger_id;}
     int getTrainId() const {return _train_id;}
     int getRouteId() const{return _route_id;}
@@ -55,8 +60,8 @@ public:
 private:
     const int ownId();
     int _ticket_id;
-    QString _dest_name;
-    QString _arrival_station;
+    QString _first_name;
+    QString _last_name;
     int _passenger_id;
     int _train_id;
     int _route_id;

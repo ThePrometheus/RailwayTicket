@@ -15,8 +15,8 @@ class TicketWidget : public QWidget
 {
     Q_OBJECT
 public:
-    TicketWidget(int pass,int train,int route,
-                 int wagon,int seat,int date, QWidget *parent=0);
+    TicketWidget(int train, int route,
+                 int wagon, int seat, int date, QWidget *parent=0);
 
 public slots:
     void discountChanged(int);
@@ -32,7 +32,6 @@ private:
     QLineEdit *discountIdLineEdit;
     QPushButton *bookButton;
 
-    int _pass;
     int _train;
     int _route;
     int _wagon;

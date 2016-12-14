@@ -37,16 +37,3 @@ const QSharedPointer<Wagon>& Train::getWagon(int i){
     if(i>=0&&i<_train_size)return _wagons.at(i);
 
 }
-
-void Train::read(const QJsonObject &json) {
-    _train_id = json["trainId"].toInt();
-    _date = json["date"].toInt();
-    _train_size = json["trainSize"].toInt();
-    populateTrain(_train_size);
-}
-
-void Train::write(QJsonObject &json) {
-    json["trainId"] = this->_train_id;
-    json["date"] = this->getDate();
-    json["trainSize"] = this->_train_size;
-}

@@ -143,7 +143,7 @@ void MainWindow::findSeats(const QString &font)
 void MainWindow::bookTicket()
 {
     if (_currSeat == QString::null) return;
-    ticketWidget = new TicketWidget(0, trainCombo->currentText().toInt(),
+    ticketWidget = new TicketWidget(trainCombo->currentText().toInt(),
                                     _route, wagonCombo->currentText().toInt(), _currSeat.toInt(), _date);
     connect(ticketWidget, SIGNAL(seatBooked()), this, SLOT(fillSeat()));
     ticketWidget->show();

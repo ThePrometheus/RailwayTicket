@@ -16,7 +16,6 @@
 #include "routedb.h"
 // GUI
 #include "findroutewindow.h"
-#include "mainwindow.h"
 
 int main(int argc, char *argv[])
 { /*QString pname= "Nazar";
