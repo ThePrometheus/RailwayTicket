@@ -18,6 +18,8 @@ void Ticket::read(const QJsonObject &json) {
     _passenger_id = json["passengerId"].toInt();
     _train_id = json["trainId"].toInt();
     _route_id = json["routeId"].toInt();
+    _wagon_number = json["wagonNumber"].toInt();
+    _seat_number = json["seatNumber"].toInt();
     _date = json["date"].toInt();
     _discount = json["discount"].toInt();
     _type_id = json["typeId"].toInt();
@@ -29,6 +31,8 @@ void Ticket::write(QJsonObject &json) const {
     json["passengerId"] = _passenger_id;
     json["trainId"] = _train_id;
     json["routeId"] = _route_id;
+    json["wagonNumber"] = _wagon_number;
+    json["seatNumber"] = _seat_number;
     json["date"] = _date;
     json["discount"] = _discount;
     json["typeId"] = _type_id;
