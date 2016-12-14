@@ -5,6 +5,11 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
+#include "ticket.h"
+#include "ticketfordisabled.h"
+#include "studentticket.h"
+#include "fullticket.h"
+#include "elderticket.h"
 
 class TicketWidget : public QWidget
 {
@@ -14,18 +19,17 @@ public:
                  int wagon,int seat,int date, QWidget *parent=0);
 
 public slots:
-    void echoChanged(int);
     void discountChanged(int);
-    void alignmentChanged(int);
-    void inputMaskChanged(int);
-    void accessChanged(int);
+    void bookPressed();
+
+signals:
+    void seatBooked();
 
 private:
     QLineEdit *nameEdit;
     QLineEdit *lastNameEdit;
     QLabel *priceLabel;
     QLineEdit *discountIdLineEdit;
-    //QLineEdit *accessLineEdit;
     QPushButton *bookButton;
 
     int _pass;
@@ -35,7 +39,8 @@ private:
     int _seat;
     int _date;
 
-    QString *_type;
+    int _type;
+    Ticket *_ticket;
 };
 
 #endif // TICKETWIDGET_H

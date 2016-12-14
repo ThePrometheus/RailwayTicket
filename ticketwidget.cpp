@@ -3,16 +3,18 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QGridLayout>
+#include <QDebug>
+#include <QMessageBox>
 
 TicketWidget::TicketWidget(int pass,int train,int route,
                            int wagon,int seat,int date, QWidget *parent) : QWidget(parent),
-                                                                           _pass(pass),
-                                                                           _train(train),
-                                                                           _seat(seat),
-                                                                           _route(route),
-                                                                           _wagon(wagon),
-                                                                           _date(date),
-                                                                           _type(new QString("adult"))
+    _pass(pass),
+    _train(train),
+    _seat(seat),
+    _route(route),
+    _wagon(wagon),
+    _date(date),
+    _type(0)
 {
     QGroupBox *nameGroup = new QGroupBox(tr("Name"));
 
@@ -43,6 +45,7 @@ TicketWidget::TicketWidget(int pass,int train,int route,
     QGroupBox *bookGroup = new QGroupBox(tr(""));
 
     bookButton = new QPushButton(tr("Book"));
+    connect(bookButton, SIGNAL(clicked()), this, SLOT(bookPressed()));
 
     connect(idComboBox, SIGNAL(activated(int)),
             this, SLOT(discountChanged(int)));
@@ -72,99 +75,70 @@ TicketWidget::TicketWidget(int pass,int train,int route,
     layout->addWidget(nameGroup, 0, 0);
     layout->addWidget(discountGroup, 1, 0);
     layout->addWidget(priceGroup, 2, 0);
-   // layout->addWidget(priceGroup, 0, 1);
+    // layout->addWidget(priceGroup, 0, 1);
     layout->addWidget(bookGroup, 3, 0);
     setLayout(layout);
 
     setWindowTitle(tr("Ticket"));
 }
 
-void TicketWidget::echoChanged(int index)
-{
-   /* switch (index) {
-    case 0:
-        nameEdit->setEchoMode(QLineEdit::Normal);
-        break;
-    case 1:
-        nameEdit->setEchoMode(QLineEdit::Password);
-        break;
-    case 2:
-        nameEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
-        break;
-    case 3:
-        nameEdit->setEchoMode(QLineEdit::NoEcho);
-    }*/
-}
 
 void TicketWidget::discountChanged(int index)
 {
     switch (index) {
     case 0:
-        discountIdLineEdit->clear();
         discountIdLineEdit->setReadOnly(true);
-        _type = new QString("adult");
+        _type = 0;
         break;
     case 1:
-        discountIdLineEdit->clear();
         discountIdLineEdit->setReadOnly(false);
-        _type = new QString("student");
+        _type = 1;
         break;
     case 2:
-        discountIdLineEdit->clear();
         discountIdLineEdit->setReadOnly(false);
-        _type = new QString("disabled");
+        _type = 2;
         break;
     case 3:
-        discountIdLineEdit->clear();
         discountIdLineEdit->setReadOnly(false);
-        _type = new QString("elder");
+        _type = 3;
+        break;
+    }
+    discountIdLineEdit->clear();
+}
+
+void TicketWidget::bookPressed()
+{
+    const QString fname(nameEdit->text());
+    const QString lname(lastNameEdit->text());
+
+    if (fname.isEmpty() || lname.isEmpty()) {
+        QMessageBox msgBox;
+        msgBox.setText("Input your full name");
+        msgBox.exec();
+        return;
+    }
+    if (_type != 0 && discountIdLineEdit->text().isEmpty()) {
+        QMessageBox msgBox;
+        msgBox.setText("Input your ID number");
+        msgBox.exec();
+        return;
+    }
+
+    switch (_type) {
+    case 0:
+        _ticket = new FullTicket(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
+        break;
+    case 1:
+        _ticket = new StudentTicket(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
+        break;
+    case 2:
+        _ticket = new TicketForDisabled(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
+        break;
+    case 3:
+        _ticket = new ElderTicket(fname, lname, _pass, _train, _route, _wagon, _seat, _date);
         break;
     }
 
-    //lastNameEdit->clear();
+    emit seatBooked();
+    this->close();
 }
-
-void TicketWidget::alignmentChanged(int index)
-{
-   /* switch (index) {
-    case 0:
-        alignmentLineEdit->setAlignment(Qt::AlignLeft);
-        break;
-    case 1:
-        alignmentLineEdit->setAlignment(Qt::AlignCenter);
-        break;
-    case 2:
-        alignmentLineEdit->setAlignment(Qt::AlignRight);
-    }*/
-}
-
-void TicketWidget::inputMaskChanged(int index)
-{
-   /* switch (index) {
-    case 0:
-        discountIdLineEdit->setInputMask("");
-        break;
-    case 1:
-        discountIdLineEdit->setInputMask("+99 99 99 99 99;_");
-        break;
-    case 2:
-        discountIdLineEdit->setInputMask("0000-00-00");
-        discountIdLineEdit->setText("00000000");
-        discountIdLineEdit->setCursorPosition(0);
-        break;
-    case 3:
-        discountIdLineEdit->setInputMask(">AAAAA-AAAAA-AAAAA-AAAAA-AAAAA;#");
-    }*/
-}
-
-void TicketWidget::accessChanged(int index)
-{
-    /*switch (index) {
-    case 0:
-        accessLineEdit->setReadOnly(false);
-        break;
-    case 1:
-        accessLineEdit->setReadOnly(true);
-    }*/
-}
-
