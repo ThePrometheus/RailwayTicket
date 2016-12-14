@@ -12,6 +12,7 @@
 #include <QPushButton>
 #include <QVector>
 #include "seatwidget.h"
+#include "ticketwidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -25,16 +26,16 @@ public slots:
     void findWagons(const QString &font);
     void findSeats(const QString &font);
     void chooseSeat(const QString &seat);
+    void bookTicket();
     void fillSeat();
 private:
     void init();
 
     SeatWidget *seatWidget;
+    TicketWidget *ticketWidget;
     QComboBox *trainCombo;
     QComboBox *wagonCombo;
-   // QLineEdit *lineEdit;
     QScrollArea *scrollArea;
-   // QCheckBox *fontMerging;
     QPushButton *bookButton;
     const QVector<QString>& _availableTrains;
     QString _currSeat;

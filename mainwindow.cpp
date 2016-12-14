@@ -42,7 +42,7 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
     connect(seatWidget, SIGNAL(seatSelected(QString)),
              this, SLOT(chooseSeat(QString)));
 
-    connect(bookButton, SIGNAL(clicked()), this, SLOT(fillSeat()));
+    connect(bookButton, SIGNAL(clicked()), this, SLOT(bookTicket()));
 
     QHBoxLayout *controlsLayout = new QHBoxLayout;
     controlsLayout->addWidget(trainLabel);
@@ -83,6 +83,7 @@ void MainWindow::chooseSeat(const QString &seat)
     _currSeat = seat;
 }
 
+
 void MainWindow::findWagons(const QString &font)
 {
    /* QString currentItem = styleCombo->currentText();
@@ -100,8 +101,8 @@ void MainWindow::findWagons(const QString &font)
         styleCombo->setCurrentIndex(styleIndex);*/
 
     QVector<QString> wagons(2);
-    wagons.append(QString("w1"));
-    wagons.append(QString("w2"));
+    wagons.append(QString("1"));
+    wagons.append(QString("2"));
     foreach (const QString& w, wagons) {
         if (!w.isEmpty() && !w.isNull())
             wagonCombo->addItem(w);
@@ -138,6 +139,13 @@ void MainWindow::findSeats(const QString &font)
         sizeCombo->setCurrentIndex(qMax(0, sizeCombo->count() / 3));
     else
         sizeCombo->setCurrentIndex(sizeIndex);*/
+}
+
+void MainWindow::bookTicket()
+{
+    ticketWidget = new TicketWidget(0, trainCombo->currentText().toInt(),
+                                    0, wagonCombo->currentText().toInt(), _currSeat.toInt(), 2000);
+    ticketWidget->show();
 }
 
 void MainWindow::fillSeat()

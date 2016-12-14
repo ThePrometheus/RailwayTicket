@@ -27,7 +27,8 @@ SOURCES += main.cpp \
     routedb.cpp \
     findroutewindow.cpp \
     seatwidget.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    ticketwidget.cpp
 
 HEADERS += \
     ticket.h \
@@ -46,4 +47,5 @@ HEADERS += \
     routedb.h \
     findroutewindow.h \
     seatwidget.h \
-    mainwindow.h
+    mainwindow.h \
+    ticketwidget.h

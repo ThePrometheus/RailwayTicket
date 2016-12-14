@@ -79,8 +79,8 @@ void FindRouteWindow::handleRoute() {
 
     if (true) {
         QVector<QString> v(2);
-        v.append(QString("test1"));
-        v.append(QString("test2"));
+        v.append(QString("1"));
+        v.append(QString("2"));
         window = new MainWindow(v);
         window->show();
     } else {
