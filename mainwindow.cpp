@@ -27,7 +27,6 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
             QString str(i);
             seats.push_back(str);
         }
-    //seats.fill(str, 10);
     seatWidget = new SeatWidget(seats);
     scrollArea->setWidget(seatWidget);
 
@@ -145,6 +144,7 @@ void MainWindow::bookTicket()
 {
     ticketWidget = new TicketWidget(0, trainCombo->currentText().toInt(),
                                     0, wagonCombo->currentText().toInt(), _currSeat.toInt(), 2000);
+    connect(ticketWidget, SIGNAL(seatBooked()), this, SLOT(fillSeat()));
     ticketWidget->show();
 }
 
