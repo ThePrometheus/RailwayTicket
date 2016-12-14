@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     // vector of strings while the data model isn't working properly
-    MainWindow(const QVector<QString>& availableTrains);
+    MainWindow(int route, int date, const QVector<QString>& availableTrains);
 
 public slots:
     void findWagons(const QString &font);
@@ -39,6 +39,8 @@ private:
     QPushButton *bookButton;
     const QVector<QString>& _availableTrains;
     QString _currSeat;
+    int _route;
+    int _date;
 };
 
 #endif // MAINWINDOW_H

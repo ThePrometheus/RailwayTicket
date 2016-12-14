@@ -11,8 +11,8 @@
 #include <QDebug>
 #include <QHBoxLayout>
 
-MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrains(availableTrains),
-    _currSeat(QString::null)
+MainWindow::MainWindow(int route, int date, const QVector<QString>& availableTrains) : _availableTrains(availableTrains),
+    _currSeat(QString::null), _route(route), _date(date)
 {
     QWidget *centralWidget = new QWidget;
 
@@ -142,8 +142,9 @@ void MainWindow::findSeats(const QString &font)
 
 void MainWindow::bookTicket()
 {
+    if (_currSeat == QString::null) return;
     ticketWidget = new TicketWidget(0, trainCombo->currentText().toInt(),
-                                    0, wagonCombo->currentText().toInt(), _currSeat.toInt(), 2000);
+                                    _route, wagonCombo->currentText().toInt(), _currSeat.toInt(), _date);
     connect(ticketWidget, SIGNAL(seatBooked()), this, SLOT(fillSeat()));
     ticketWidget->show();
 }
