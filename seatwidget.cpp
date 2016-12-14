@@ -96,9 +96,6 @@ void SeatWidget::paintEvent(QPaintEvent *event)
         }
     }
 
-    qDebug() << beginRow << " " << endRow;
-    qDebug() << beginColumn << " " << endColumn;
-
     QFontMetrics fontMetrics(displayFont);
     painter.setPen(QPen(Qt::black));
 

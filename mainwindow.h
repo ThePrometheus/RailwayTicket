@@ -24,6 +24,7 @@ public:
 public slots:
     void findWagons(const QString &font);
     void findSeats(const QString &font);
+    void chooseSeat(const QString &seat);
     void fillSeat();
 private:
     void init();
@@ -36,6 +37,7 @@ private:
    // QCheckBox *fontMerging;
     QPushButton *bookButton;
     const QVector<QString>& _availableTrains;
+    QString _currSeat;
 };
 
 #endif // MAINWINDOW_H

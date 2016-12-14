@@ -11,7 +11,8 @@
 #include <QDebug>
 #include <QHBoxLayout>
 
-MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrains(availableTrains)
+MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrains(availableTrains),
+    _currSeat(QString::null)
 {
     QWidget *centralWidget = new QWidget;
 
@@ -38,6 +39,8 @@ MainWindow::MainWindow(const QVector<QString>& availableTrains) : _availableTrai
             this, SLOT(findSeats(QString)));
     connect(wagonCombo, SIGNAL(currentIndexChanged(QString)),
              seatWidget, SLOT(updateSeats(QString)));
+    connect(seatWidget, SIGNAL(seatSelected(QString)),
+             this, SLOT(chooseSeat(QString)));
 
     connect(bookButton, SIGNAL(clicked()), this, SLOT(fillSeat()));
 
@@ -73,6 +76,11 @@ void MainWindow::init()
     }
     if (_availableTrains.size() > 0)
         trainCombo->setCurrentIndex(0);
+}
+
+void MainWindow::chooseSeat(const QString &seat)
+{
+    _currSeat = seat;
 }
 
 void MainWindow::findWagons(const QString &font)
@@ -134,9 +142,10 @@ void MainWindow::findSeats(const QString &font)
 
 void MainWindow::fillSeat()
 {
-    /*lineEdit->insert(seat);*/
     QMessageBox msgBox;
-    msgBox.setText("test");
+    if (_currSeat != QString::null)
+        msgBox.setText(_currSeat);
+    else msgBox.setText("N/A");
     msgBox.exec();
 }
 
