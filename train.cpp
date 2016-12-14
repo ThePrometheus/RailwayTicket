@@ -27,6 +27,27 @@ void Train::populateTrain(int number){
     }
 }
 
+Train::Train(const Train &t) : _train_id(t.getId()), _date(t.getDate()), _train_size(t.getSize()), _wagons(new QVector<Wagon>)
+{
+    populateTrain(_train_size);
+}
+
+Train& Train::operator =(const Train& t)
+{
+    if (this==&t)
+        return *this;
+    _train_id = t.getId();
+    _train_size = t.getSize();
+    _date = t.getDate();
+    depopulateTrain();
+    populateTrain(_train_size);
+    return *this;
+}
+
+bool operator ==(const Train& t1, const Train& t2) {
+    return (t1.getId() == t2.getId() && t1.getDate() == t2.getDate());
+}
+
 void Train::depopulateTrain(){
     for(int i=0;i<_wagons->size();++i){
         _wagons->at(i).~Wagon();

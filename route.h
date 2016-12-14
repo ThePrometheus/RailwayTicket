@@ -10,17 +10,16 @@ class Route {
 private:
     QString _depart_station;
     int _route_id;
-    QVector<QSharedPointer<Train>> _trains;
+    QVector<Train>* _trains;
     int _nstops;
-    QVector<QSharedPointer<Stops>> _stops;
+    QVector<Stops>* _stops;
     int _route_size;
     virtual  void populateRoute(int number);
 
     virtual  void depopulateRoute();
 
 public:
-    Route(const QString& depart_station="NA",int id=0,int route_size=0,
-          QVector<QSharedPointer<Stops>>* stops=0);
+    Route(const QString& depart_station="NA", int id=0, int route_size=0);
     Route(const Route&);
     Route&operator=(const Route&);
     ~Route();
@@ -28,7 +27,7 @@ public:
     const QString& getDepartStation() const;
     const QVector<QString>& getArrivalStations() const;
     const int getId() const{return _route_id;}
-    const QVector<QSharedPointer<Stops>>& getStops() const {return _stops;}
+    //const QVector<QSharedPointer<Stops>>& getStops() const {return _stops;}
     const int getRouteSize() const {return _route_size;}
 
     // JSON read/write
