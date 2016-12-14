@@ -22,8 +22,6 @@ SeatWidget::SeatWidget(const QVector<QString> &seats, QWidget *parent)
 
 void SeatWidget::updateSeats(const QString &seats)
 {
-    /*displayFont.setPointSize(fontSize.toInt());
-    squareSize = qMax(24, QFontMetrics(displayFont).xHeight() * 3);*/
     adjustSize();
     update();
 }
@@ -81,6 +79,7 @@ void SeatWidget::mousePressEvent(QMouseEvent *event)
 void SeatWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
+    squareSize = qMax(24, QFontMetrics(displayFont).xHeight() * 3);
     painter.fillRect(event->rect(), QBrush(Qt::white));
     painter.setFont(displayFont);
 
@@ -97,18 +96,18 @@ void SeatWidget::paintEvent(QPaintEvent *event)
         }
     }
 
+    qDebug() << beginRow << " " << endRow;
+    qDebug() << beginColumn << " " << endColumn;
+
     QFontMetrics fontMetrics(displayFont);
     painter.setPen(QPen(Qt::black));
-    //foreach (const QString& seat, _seats) {
-        qDebug() << _seats.size();
-    //}
 
-    for (int row = beginRow; row <= endRow; ++row) {
+    for (size_t row = beginRow; row <= endRow; ++row) {
 
-        for (int column = beginColumn; column <= endColumn; ++column) {
+        for (size_t column = beginColumn; column <= endColumn; ++column) {
 
             int key = row*columns + column;
-            if (key >= _seats.size() || key < 0) return;
+            if (key >= _seats.size()) return;
             const QString& seat = _seats.at(key);
             painter.setClipRect(column*squareSize, row*squareSize, squareSize, squareSize);
 
