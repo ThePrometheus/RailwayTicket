@@ -6,7 +6,8 @@
 #include <QJsonArray>
 #include <QIODevice>
 
-RouteDb::RouteDb(const QString &filename) : _db_location(filename) {
+RouteDb::RouteDb(const QString &filename, const QString &filename2) : _rdb_location(filename), _tdb_location(filename2)
+{
     //if (_db_location != QString::null)
         //loadRoutes();
 }
@@ -39,14 +40,8 @@ const QVector<QSharedPointer<Route>> RouteDb::findRoutes(const QString &from, co
     return res;
 }
 
-void RouteDb::setLocation(const QString &filename) {
-    this->_db_location = filename;
-    if (filename != QString::null)
-        loadRoutes();
-}
-
 void RouteDb::loadRoutes() {
-    QFile loafFile(_db_location);
+    QFile loafFile(_rdb_location);
 
     if (!loafFile.open(QIODevice::ReadOnly)) {
         qWarning("Couldn't open save file");
@@ -75,7 +70,7 @@ void RouteDb::loadRoutes() {
 }
 
 void RouteDb::saveRoutes() {
-    QFile saveFile(_db_location);
+    QFile saveFile(_rdb_location);
 
     if (!saveFile.open(QIODevice::WriteOnly)) {
         qWarning("Couldn't open save file");

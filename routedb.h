@@ -5,16 +5,16 @@
 #include <QSharedPointer>
 #include <QString>
 #include "route.h"
+#include "ticket.h"
 
 class RouteDb
 {
 public:
     // only for debug
-    QVector<QSharedPointer<Route>> _routes;
-    RouteDb(const QString& filename = QString::null);
+    QVector<Route> _routes;
+    RouteDb(const QString& filename = QString::null, const QString& filename2 = QString::null);
     ~RouteDb();
 
-    void setLocation(const QString& filename);
     void addRoute(const QSharedPointer<Route> r);
     void removeRoute(const QSharedPointer<Route> r);
     bool contains(const QSharedPointer<Route> r);
@@ -25,7 +25,10 @@ public:
 
 private:
    // QVector<QSharedPointer<Route>> _routes;
-    QString _db_location;
+    QString _rdb_location;
+    QString _tdb_location;
+
+    QVector<Ticket> _tickets;
 
     void loadRoutes();
 
