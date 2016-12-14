@@ -14,31 +14,32 @@ private:
     int _nstops;
     QVector<QSharedPointer<Stops>> _stops;
     int _route_size;
-    Route(const Route&);
-    Route&operator=(const Route&);
-  virtual  void populateRoute(int number);
+    virtual  void populateRoute(int number);
 
-  virtual  void depopulateRoute();
+    virtual  void depopulateRoute();
 
 public:
-    Route(const QString& depart_station,int id,int route_size,QVector<QSharedPointer<Stops>>& stops);
+    Route(const QString& depart_station="NA",int id=0,int route_size=0,
+          QVector<QSharedPointer<Stops>>* stops=0);
+    Route(const Route&);
+    Route&operator=(const Route&);
     ~Route();
     const QSharedPointer<Train>& findByDate(int date) const;
     const QString& getDepartStation() const;
     const QVector<QString>& getArrivalStations() const;
     const int getId() const{return _route_id;}
+    const QVector<QSharedPointer<Stops>>& getStops() const {return _stops;}
+    const int getRouteSize() const {return _route_size;}
 
     // JSON read/write
     void read(const QJsonObject &json);
     void write(QJsonObject &json) const;
 
-const QString& getStationAt(int date);
-//OBSOLETE
-//const int getTimeAtStation(const QString& station);
-void addArrivalStation(int date, QString station);
-
-
+    const QString& getStationAt(int date);
+    void addArrivalStation(int date, QString station);
 
 };
+
+bool operator ==(const Route& r1, const Route& r2);
 
 #endif // ROUTE_H

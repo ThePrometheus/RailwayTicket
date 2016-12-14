@@ -6,8 +6,8 @@
 #include <QDebug>
 #include <QJsonArray>
 
-Route::Route(const QString& depart_station, int id, int route_size, QVector<QSharedPointer<Stops> > &stops):_route_id(id),
-    _nstops(stops.size()),_route_size(route_size),_stops(stops),_depart_station(depart_station){
+Route::Route(const QString& depart_station, int id, int route_size, QVector<QSharedPointer<Stops> > *stops):_route_id(id),
+    _nstops(stops->size()),_route_size(route_size),_stops(*stops),_depart_station(depart_station){
     populateRoute(route_size);
 
     qDebug()<<"ROUTE IS CREATED"<<endl;
@@ -28,6 +28,32 @@ void Route::populateRoute(int number){
         _trains[i] = QSharedPointer<Train>(new Train(i));
         qDebug() << "in populateRoute";
     }
+}
+
+Route::Route(const Route& r) :_route_id(r.getId()),
+    _nstops(r.getStops().size()),
+    _route_size(r.getRouteSize()),
+    _stops(r.getStops()),
+    _depart_station(r.getDepartStation())
+{
+    populateRoute(_route_size);
+}
+
+
+Route& Route::operator=(const Route& r)
+{
+    if (this==&r) return *this;
+    _route_id = r.getId();
+    _nstops = r.getStops().size();
+    _route_size = r.getRouteSize();
+    _stops.clear();
+    _stops = r.getStops();
+    _depart_station = r.getDepartStation();
+    return *this;
+}
+
+bool operator ==(const Route& r1, const Route& r2) {
+    return (r1.getId() == r2.getId());
 }
 
 void Route::depopulateRoute(){

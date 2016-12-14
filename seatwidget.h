@@ -17,10 +17,7 @@ public:
     QSize sizeHint() const Q_DECL_OVERRIDE;
 
 public slots:
-  //  void updateFont(const QString &font);
     void updateSeats(const QString &seats);
-   // void updateStyle(const QString &fontStyle);
-   // void updateFontMerging(bool enable);
 
 signals:
     void seatSelected(const QString &seat);

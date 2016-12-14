@@ -61,8 +61,7 @@ void RouteDb::loadRoutes() {
     _routes->clear();
     for (size_t i = 0; i < routes.size(); ++i) {
         QJsonObject obj = routes[i].toObject();
-        QVector<QSharedPointer<Stops>> empty;
-        Route r(QString::null, 0, 0, empty);
+        Route r;
         r.read(obj);
         qDebug() << "about to append " << r.getDepartStation();
         _routes->push_back(r);

@@ -11,6 +11,9 @@ public:
     Ticket(QString dname = "NA",QString aname ="NA",int pass=0,int train=0,int route=0,
            int wagon=0,int seat=0,int date=0,QString type="null",int discount=0,int type_id=0);
 
+    Ticket(const Ticket&);
+    Ticket& operator=(const Ticket& t);
+
     // JSON read/write
     void read(const QJsonObject &json);
     void write(QJsonObject &json) const;
@@ -43,22 +46,23 @@ public:
         return res;
     }
 
-    const int getTypeId(){return ownId();}
+    const int getTypeId() const {return ownId();}
     const int getTicketId()const ;
     //IT SHOULD BE PURE VIRTUAL !!
     virtual ~Ticket(){};
 
-    QString getDestName() const {return _first_name;}
-    QString getArrivalName() const{return _last_name;}
+    QString getFirstName() const {return _first_name;}
+    QString getLastName() const{return _last_name;}
     int getPassengerId() const{return _passenger_id;}
     int getTrainId() const {return _train_id;}
     int getRouteId() const{return _route_id;}
     int getWagonNumber() const{return _wagon_number;}
     int getSeatNumber() const {return _seat_number;}
     int getDate() const { return _date;}
+    int getDiscount() const{return _discount;}
 
 private:
-    const int ownId();
+    const int ownId() const;
     int _ticket_id;
     QString _first_name;
     QString _last_name;
@@ -72,13 +76,12 @@ private:
     QString _type;
     int _type_id;
 
-
-    Ticket(Ticket&);
 protected:
 
 
 
 };
 
+bool operator ==(const Ticket& t1, const Ticket& t2);
 
 #endif // TICKET_H

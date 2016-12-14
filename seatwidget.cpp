@@ -12,40 +12,11 @@ SeatWidget::SeatWidget(const QVector<QString> &seats, QWidget *parent)
     setMouseTracking(true);
 }
 
-/*void SeatWidget::updateFont(const QString &font)
-{
-    /*displayFont.setFamily(font.family());
-    squareSize = qMax(24, QFontMetrics(displayFont).xHeight() * 3);
-    adjustSize();
-    update();
-}*/
-
 void SeatWidget::updateSeats(const QString &seats)
 {
     adjustSize();
     update();
 }
-
-/*void SeatWidget::updateStyle(const QString &fontStyle)
-{
-    QFontDatabase fontDatabase;
-    const QFont::StyleStrategy oldStrategy = displayFont.styleStrategy();
-    displayFont = fontDatabase.font(displayFont.family(), fontStyle, displayFont.pointSize());
-    displayFont.setStyleStrategy(oldStrategy);
-    squareSize = qMax(24, QFontMetrics(displayFont).xHeight() * 3);
-    adjustSize();
-    update();
-}
-
-void SeatWidget::updateFontMerging(bool enable)
-{
-    if (enable)
-        displayFont.setStyleStrategy(QFont::PreferDefault);
-    else
-        displayFont.setStyleStrategy(QFont::NoFontMerging);
-    adjustSize();
-    update();
-}*/
 
 QSize SeatWidget::sizeHint() const
 {
