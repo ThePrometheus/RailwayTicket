@@ -37,10 +37,10 @@ void Route::depopulateRoute(){
     _trains.clear();
 }
 
-const QString& Route::getDepartStation(){
+const QString& Route::getDepartStation() const{
     return _depart_station;
 }
-const QVector<QString>& Route::getArrivalStations(){
+const QVector<QString>& Route::getArrivalStations() const{
     QVector<QString> temp(_stops.size());
     for(int i=0;i<_stops.size();++i){
         temp[i] = _stops[i]->getStation();
@@ -61,7 +61,7 @@ const QString& Route::getStationAt(int date){
     return QString("NA");
 
 }
-const QSharedPointer<Train>& Route::findByDate(int date){
+const QSharedPointer<Train>& Route::findByDate(int date) const{
     qDebug() << "entered findByDate, n of trains: " << _trains.at(0);
     for(int i=0;i<_trains.size();++i){
         qDebug() << "in findByDate loop";

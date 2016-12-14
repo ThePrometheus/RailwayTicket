@@ -15,9 +15,9 @@ public:
     RouteDb(const QString& filename = QString::null, const QString& filename2 = QString::null);
     ~RouteDb();
 
-    void addRoute(const QSharedPointer<Route> r);
-    void removeRoute(const QSharedPointer<Route> r);
-    bool contains(const QSharedPointer<Route> r);
+    void addRoute(const Route& r);
+    void removeRoute(const Route& r);
+    bool contains(const Route &r);
 
     void saveRoutes();
 
