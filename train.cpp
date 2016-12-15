@@ -54,7 +54,7 @@ bool operator ==(const Train& t1, const Train& t2) {
 }
 
 void Train::depopulateTrain(){
-    qDebug() << "depopulating train";
+    //qDebug() << "depopulating train";
     for(int i=0;i<_wagons->size();++i){
         _wagons->at(i).~Wagon();
     }

@@ -33,6 +33,5 @@ void Stops::read(const QJsonObject &json) {
 
 void Stops::write(QJsonObject &json) const {
     json["date"] = (_date) ? this->_date : 0;
-    qDebug()<<"hi"<<endl;
     json["station"] = (_station != QString::null) ? this->_station : QString("NA");
 }

@@ -24,7 +24,7 @@ public:
     ~Route();
     const QSharedPointer<Train>& findByDate(int date) const;
     const QString& getDepartStation() const;
-    const QVector<QString>& getArrivalStations() const;
+    const QVector<QString> getArrivalStations() const;
     const int getId() const{return _route_id;}
     //const QVector<QSharedPointer<Stops>>& getStops() const {return _stops;}
     const int getRouteSize() const {return _route_size;}

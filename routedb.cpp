@@ -48,7 +48,7 @@ const QVector<QSharedPointer<Route>> RouteDb::findRoutes(const QString &from, co
 
 void RouteDb::loadRoutes() {
     QFile loadFile(_rdb_location);
-    QFile loadFile(_tdb_location);
+    //QFile loadFile(_tdb_location);
 
     if (!loadFile.open(QIODevice::ReadOnly)) {
         qWarning("Couldn't open save file");
@@ -60,17 +60,21 @@ void RouteDb::loadRoutes() {
 
     QJsonArray routes = json["routes"].toArray();
     _routes->clear();
-    qDebug() << "SIZE " <<routes.size();
     size_t lim = routes.size();
     for (size_t i = 0; i < lim; ++i) {
         QJsonObject obj = routes[i].toObject();
         Route r;
-        r.read(obj);
-        qDebug() << "about to append " << r.getDepartStation();
         (*_routes).append(r);
+        (*_routes).operator [](i).read(obj);
         (*_routes).operator [](i).populateRoute();
     }
-    qDebug() << "have appended " << _routes->at(0).getDepartStation();
+    qDebug() << "out of loop";
+    foreach (const Route& r, (*_routes)) {
+        qDebug() << r.getDepartStation() << " " << r.getArrivalStations().size();
+        foreach (const QString& str, r.getArrivalStations()) {
+            qDebug() << str;
+        }
+    }
     qDebug() << "finished loading";
     loadFile.close();
 }

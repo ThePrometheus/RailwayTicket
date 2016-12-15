@@ -18,8 +18,8 @@ Route::Route(const QString& depart_station, int id, int route_size):_route_id(id
 }
 Route::~Route(){
     depopulateRoute();
-    delete _trains;
-    delete _stops;
+   // delete _trains;
+  // delete _stops;
     qDebug()<<"ROUTE IS DELETED"<<endl;
 
 }
@@ -66,9 +66,9 @@ void Route::depopulateRoute(){
     for(int i=0;i<_trains->size();++i){
         _trains->at(i).~Train();
     }
-    for(int i=0;i<_stops->size();++i){
+    /*for(int i=0;i<_stops->size();++i){
         _stops->at(i).~Stops();
-    }
+    }*/
     _trains->clear();
     _stops->clear();
 }
@@ -76,7 +76,8 @@ void Route::depopulateRoute(){
 const QString& Route::getDepartStation() const{
     return _depart_station;
 }
-const QVector<QString>& Route::getArrivalStations() const{
+const QVector<QString> Route::getArrivalStations() const{
+    if (_stops->size() < 0) return QVector<QString>(0);
     QVector<QString> temp(_stops->size());
     for(int i=0;i<_stops->size();++i){
         temp[i] = _stops->at(i).getStation();
@@ -120,24 +121,21 @@ void Route::addArrivalStation(int date,QString station){
 
 
 void Route::read(const QJsonObject &json) {
+    qDebug() << "hi";
     _depart_station = json["departStation"].toString();
     _route_id = json["routeId"].toInt();
     _nstops = json["nStops"].toInt();
     _route_size = json["routeSize"].toInt();
-    //for (size_t i = 0; i < _stops.size(); ++i)
-      //  _stops.pop_back();
     _stops->clear();
+    _stops = new QVector<Stops>;
     QJsonArray stops = json["stops"].toArray();
     for (size_t i = 0; i < stops.size(); ++i) {
         QJsonObject obj = stops.at(i).toObject();
         Stops s;
-        s.read(obj);
-        //QSharedPointer<Stops> sp(&s);
-        (*_stops)<<s;
+       // s.read(obj);
+        (*_stops).append(s);
+        (*_stops).operator [](i).read(obj);
     }
-    //depopulateRoute();
-    qDebug() << "in read route";
-   // populateRoute(_route_size);
 
     qDebug() << "here";
 }

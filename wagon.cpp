@@ -67,7 +67,7 @@ void Wagon::populateWagon(){
 }
 
 void Wagon::depopulateWagon(){
-    qDebug() << "depopulate wagon";
+   // qDebug() << "depopulate wagon";
     for(int i=0;i<_seats->size();++i){
         _seats->at(i).~Seat();
     }
