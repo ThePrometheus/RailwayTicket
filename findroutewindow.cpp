@@ -2,9 +2,10 @@
 #include <QGridLayout>
 #include <QMessageBox>
 #include "stops.h"
+#include <QRegExp>
 
 FindRouteWindow::FindRouteWindow(QWidget *parent)
-    : QWidget(parent), _rdb("c:/tmpdata/routes.json")
+    : QWidget(parent), _rdb(QString("c:/tmpdata/routes.json"), QString("c:/tmpdata/tickets.json"))
 {
     setupModel();
 
@@ -44,9 +45,17 @@ FindRouteWindow::FindRouteWindow(QWidget *parent)
 }
 
 void FindRouteWindow::handleRoute() {
+
     QString from(departEdit->text());
     QString to(destinationEdit->text());
-    QString on(dateEdit->text().toInt());
+    QString on(dateEdit->text());
+    QRegExp re("\\d*");
+    if (!re.exactMatch(on)) {
+        QMessageBox msgBox;
+        msgBox.setText("Fill in the date correctly.");
+        msgBox.exec();
+        return;
+    }
     qDebug() << from << " " << to << " " << on;
     // When the db works
     // const QVector<QSharedPointer<Route>> routes(_rdb.findRoutes(from, to));
@@ -68,6 +77,7 @@ void FindRouteWindow::handleRoute() {
     }*/
 
     if (!from.isEmpty() && !to.isEmpty() && !on.isEmpty()) {
+        const QVector<const Train*> f(_rdb.findTrains(from, to, on.toInt()));
         QVector<QString> v(2);
         v.append(QString("1"));
         v.append(QString("2"));
@@ -85,9 +95,9 @@ void FindRouteWindow::setupModel()
 {
     model = new QStandardItemModel(5, 3, this);
     QStringList departures;
-    departures << "";
+    departures << _rdb.findRoute(0).getDepartStation();
     QStringList destinations;
-    destinations << "";
+    destinations << _rdb.findRoute(0).getArrivalStations().at(0);
 
     for (int row = 0; row < 1; ++row) {
         QStandardItem *item = new QStandardItem(departures[row]);

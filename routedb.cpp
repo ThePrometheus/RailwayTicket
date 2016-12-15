@@ -9,8 +9,8 @@
 RouteDb::RouteDb(const QString &filename, const QString &filename2) : _rdb_location(filename),
     _tdb_location(filename2), _routes(new QVector<Route>), _tickets(new QVector<Ticket>)
 {
-    //if (_db_location != QString::null)
-        //loadRoutes();
+    if (_rdb_location != QString::null && _tdb_location != QString::null)
+        loadRoutes();
 }
 
 RouteDb::~RouteDb() {
@@ -35,15 +35,21 @@ void RouteDb::removeRoute(const Route &r) {
     _routes->removeOne(r);
 }
 
-const QVector<QSharedPointer<Route>> RouteDb::findRoutes(const QString &from, const QString &to) {
-    QVector<QSharedPointer<Route>> res;
+const QVector<const Train*> RouteDb::findTrains(const QString &from, const QString &to, const int on) const {
+    QVector<const Train*> found;
     for (size_t i = 0; i < _routes->size(); ++i) {
         if (_routes->at(i).getDepartStation() == from && _routes->at(i).getArrivalStations().contains(to)) {
-            QSharedPointer<Route> ptr(&(_routes->data()[i]));
-            res.append(ptr);
+            if (_routes->at(i).findTrain(on).getId() != -1) {
+               // const Train* const ptr = &(_routes->at(i).findTrain(on));
+                found.append(&(_routes->at(i).findTrain(on)));
+            }
         }
     }
-    return res;
+    return found;
+}
+
+const Route& RouteDb::findRoute(int index) const {
+    return _routes->at(index);
 }
 
 void RouteDb::loadRoutes() {

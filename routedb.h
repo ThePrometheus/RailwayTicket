@@ -21,7 +21,8 @@ public:
     void saveRoutes();
     void saveTickets();
 
-    const QVector<QSharedPointer<Route>> findRoutes(const QString &from, const QString &to);
+    const QVector<const Train*> findTrains(const QString &from, const QString &to, const int on) const;
+    const Route& findRoute(int index) const;
 
 private:
     QString _rdb_location;

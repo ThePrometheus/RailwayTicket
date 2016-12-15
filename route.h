@@ -37,6 +37,7 @@ public:
     void addArrivalStation(int date, QString station);
 
     void bookSeat(int date, int train, int wagon, int seat) const;
+    const Train& findTrain(int date) const;
 
 };
 

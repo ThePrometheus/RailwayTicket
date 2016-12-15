@@ -126,6 +126,14 @@ void Route::bookSeat(int date, int train, int wagon, int seat) const
     }
 }
 
+const Train& Route::findTrain(int date) const {
+    for (size_t i = 0; i < _trains->size(); ++i)
+        if (_trains->at(i).getDate()==date)
+            return _trains->at(i);
+    return Train(-1);
+}
+
+
 void Route::read(const QJsonObject &json) {
     qDebug() << "hi";
     _depart_station = json["departStation"].toString();
