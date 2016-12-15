@@ -82,6 +82,18 @@ void RouteDb::loadRoutes() {
     loadFileR.close();
 
     QJsonArray tickets = jsonT["tickets"].toArray();
+    _tickets->clear();
+    for (size_t i = 0; i < tickets.size(); ++i) {
+        Ticket t;
+        (*_tickets).append(t);
+    }
+    for (size_t i = 0; i < tickets.size(); ++i) {
+        QJsonObject obj = tickets[i].toObject();
+        (*_tickets).operator [](i).read(obj);
+    }
+    foreach (const Ticket& t, (*_tickets)) {
+        qDebug() << t.print();
+    }
 
     loadFileT.close();
 }
