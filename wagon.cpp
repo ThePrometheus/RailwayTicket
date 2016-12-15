@@ -59,7 +59,7 @@ const QVector<const Seat*> Wagon::findSeats() const {
 
 
 void Wagon::bookSeat(int seat) const {
-    if (seat > _seats->size()) return;
+    if (seat >= _seats->size()) return;
     _seats->at(seat).makeUnavailable();
 }
 

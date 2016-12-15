@@ -24,7 +24,7 @@ Train::~Train(){
 
 void Train::bookSeat(int wagon, int seat) const
 {
-    if (wagon > _wagons->size()) return;
+    if (wagon >= _wagons->size()) return;
     const QPair<int,int> pair(wagon,seat);
     //_wagons->at(wagon).bookSeat(seat);
     if (!_bookedSeats.contains(pair))
