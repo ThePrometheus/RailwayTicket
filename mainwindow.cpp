@@ -70,8 +70,9 @@ MainWindow::MainWindow(int route, int date, const QVector<const Train *> &availa
 
 void MainWindow::init()
 {
-    foreach (const Train* const train, _availableTrains) {
-        trainCombo->addItem(QString::number(train->getId()));
+    for (size_t i = 0; i < _availableTrains.size(); ++i) {
+        const Train* const train = _availableTrains.at(i);
+        trainCombo->addItem(QString::number(i+1)+ " " + QString::number(train->getId()));
     }
     if (_availableTrains.size() > 0)
         trainCombo->setCurrentIndex(0);
@@ -99,14 +100,14 @@ void MainWindow::findWagons(const QString &wagon)
     else
         styleCombo->setCurrentIndex(styleIndex);*/
 
-    QVector<QString> wagons(2);
+    const Train* const train = _availableTrains.at(trainCombo->currentIndex());
+   /* QVector<QString> wagons(2);
     wagons.append(QString("1"));
-    wagons.append(QString("2"));
-    foreach (const QString& w, wagons) {
-        if (!w.isEmpty() && !w.isNull())
-            wagonCombo->addItem(w);
+    wagons.append(QString("2"));*/
+    for (size_t i = 0; i < train->getSize(); ++i) {
+        wagonCombo->addItem(QString::number(i+1));
     }
-    if (wagons.size() > 0)
+    if (train->getSize() > 0)
         wagonCombo->setCurrentIndex(0);
 }
 
