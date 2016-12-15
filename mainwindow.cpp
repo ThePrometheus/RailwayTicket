@@ -24,10 +24,9 @@ MainWindow::MainWindow(int route, int date, const QVector<QPair<int,int>> availa
     wagonCombo = new QComboBox;
 
     scrollArea = new QScrollArea;
-    QVector<QString> seats(0);
-        for (char i = '0'; i <= '9'; ++i) {
-            QString str(i);
-            seats.push_back(str);
+    QVector<QString> seats;
+        for (size_t i = 0; i < 20; ++i) {
+            seats.push_back(QString::number(i+1));
         }
     seatWidget = new SeatWidget(seats);
     scrollArea->setWidget(seatWidget);
@@ -115,16 +114,15 @@ void MainWindow::findWagons(const QString &wagon)
 
 void MainWindow::findSeats(const QString &wagon)
 {
-    /*const Train* const train = _availableTrains->at(trainCombo->currentIndex());
-    qDebug() << "FINDSEATS TRAINS" << _availableTrains->at(trainCombo->currentIndex())->getDate();
-    qDebug() << "FINDSEATS" << wagon << _availableTrains->at(trainCombo->currentIndex());
-    if (_availableTrains->at(trainCombo->currentIndex())->getWagon(wagon.toInt()).getNumber() != -1) {
+    const QPair<int,int> ids = _availableTrains.at(trainCombo->currentIndex());
+    /*if (_rdb.findTrain(ids.first, ids.second).getWagon(wagon.toInt()-1).getNumber() != -1) {
         qDebug() << "not -1";
-        const QVector<const Seat*> seats = _availableTrains->at(trainCombo->currentIndex())->getWagon(wagon.toInt()-1).findSeats();
+        const QVector<const Seat*> seats = _rdb.findTrain(ids.first, ids.second).getWagon(wagon.toInt()-1).findSeats();
         qDebug() << seats.size();
     } else {
         qDebug() << "NA";
     }*/
+   const QVector<QPair<int,int>>& b = _rdb.findTrain(ids.first, ids.second).getBookedSeats();
 }
 
 void MainWindow::bookTicket()

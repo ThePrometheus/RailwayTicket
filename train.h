@@ -4,6 +4,7 @@
 #include <QVector>
 #include <QSharedPointer>
 #include <QJsonObject>
+#include <QPair>
 class Train{
 
 private:
@@ -11,6 +12,7 @@ private:
     int _date;
     int _train_size;
     QVector<Wagon>* _wagons;
+    mutable QVector<QPair<int,int>> _bookedSeats;
 public:
     virtual void populateTrain();
     virtual void depopulateTrain();
@@ -21,6 +23,7 @@ public:
     inline const   int getId() const{return _train_id;}
     inline  const int getDate()const {return _date;}
     inline  const int getSize()const {return _train_size;}
+    inline  const QVector<QPair<int,int>>& getBookedSeats()const {return _bookedSeats;}
     const Wagon& getWagon(int i) const;
     void setDate(int date){_date=date;}
 

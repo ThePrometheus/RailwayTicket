@@ -15,6 +15,7 @@ _wagons(new QVector<Wagon>){
 }
 Train::~Train(){
     depopulateTrain();
+    //_bookedSeats.clear();
     //delete _wagons;
 #ifndef QT_NO_DEBUG
     qDebug()<<"train deleted"<<endl;
@@ -24,7 +25,10 @@ Train::~Train(){
 void Train::bookSeat(int wagon, int seat) const
 {
     if (wagon > _wagons->size()) return;
-    _wagons->at(wagon).bookSeat(seat);
+    const QPair<int,int> pair(wagon,seat);
+    //_wagons->at(wagon).bookSeat(seat);
+    if (!_bookedSeats.contains(pair))
+        _bookedSeats.push_back(pair);
 }
 
 void Train::populateTrain(){
@@ -32,8 +36,9 @@ void Train::populateTrain(){
     for(int i=0;i<_train_size;++i){
         Wagon w(i);
         _wagons->append(w);
-        _wagons->operator [](i).populateWagon();
     }
+    for(int i =0;i < _train_size; ++i)
+        _wagons->operator [](i).populateWagon();
 
     qDebug() << "in populateTrain" << _wagons->size();
 }
