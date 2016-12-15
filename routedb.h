@@ -12,6 +12,8 @@ class RouteDb
 public:
     // only for debug
     QVector<Route> *_routes;
+
+    void loadRoutes();
     RouteDb(const QString& filename = QString::null, const QString& filename2 = QString::null);
     ~RouteDb();
 
@@ -30,7 +32,6 @@ private:
 
     QVector<Ticket> *_tickets;
 
-    void loadRoutes();
 
     RouteDb(const RouteDb&);
     RouteDb operator=(const RouteDb&);

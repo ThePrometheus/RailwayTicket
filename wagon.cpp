@@ -3,7 +3,7 @@
 #include<QString>
 
 Wagon::Wagon(int number,int size):_wagon_number(number),_wagon_size(size), _seats(new QVector<Seat>){
-    populateWagon(size);
+    //populateWagon(size);
 #ifndef QT_NO_DEBUG
     // qDebug()<<"Wagon is created"<<endl;
 
@@ -60,11 +60,14 @@ void Wagon::changeNumber(int i){
 }
 void Wagon::populateWagon(int number){
     for(int i=0;i<number;++i){
-        _seats->data()[i] = Seat(i);
+        Seat s(i);
+        _seats->append(s);
+
     }
 }
 
 void Wagon::depopulateWagon(){
+    qDebug() << "depopulate wagon";
     for(int i=0;i<_seats->size();++i){
         _seats->at(i).~Seat();
     }

@@ -9,7 +9,7 @@
 Route::Route(const QString& depart_station, int id, int route_size):_route_id(id), _trains(new QVector<Train>),
     _stops(new QVector<Stops>),
     _nstops(0),_route_size(route_size),_depart_station(depart_station){
-    populateRoute(route_size);
+    //populateRoute(route_size);
 
     qDebug()<<"ROUTE IS CREATED"<<endl;
 
@@ -25,10 +25,11 @@ Route::~Route(){
 }
 
 void Route::populateRoute(int number){
-   // _trains = QVector<QSharedPointer<Train>>(number);
     for(int i=0;i<number;++i){
-        _trains->data()[i] = Train(i);
-        qDebug() << "in populateRoute";
+      //  Train t(i+1);
+       // qDebug() << t.getId() << " " << t.getDate() << " " << t.getSize();
+        _trains->append(Train(i+1));
+        qDebug() << "in populateRoute" << _trains->size();
     }
 }
 
@@ -39,7 +40,7 @@ Route::Route(const Route& r) :_route_id(r.getId()),
     _trains(new QVector<Train>),
     _depart_station(r.getDepartStation())
 {
-    populateRoute(_route_size);
+ //   populateRoute(_route_size);
 }
 
 
@@ -49,7 +50,7 @@ Route& Route::operator=(const Route& r)
     _route_id = r.getId();
     _nstops = 0;
     _route_size = r.getRouteSize();
-    _stops->clear();
+    //_stops->clear();
     //_stops = r.getStops();
     _depart_station = r.getDepartStation();
     return *this;
@@ -60,6 +61,7 @@ bool operator ==(const Route& r1, const Route& r2) {
 }
 
 void Route::depopulateRoute(){
+    qDebug() << "depopulate route";
     for(int i=0;i<_trains->size();++i){
         _trains->at(i).~Train();
     }
@@ -130,10 +132,13 @@ void Route::read(const QJsonObject &json) {
         Stops s;
         s.read(obj);
         //QSharedPointer<Stops> sp(&s);
-        _stops->append(s);
+        (*_stops)<<s;
     }
-    depopulateRoute();
-    populateRoute(_route_size);
+    //depopulateRoute();
+    qDebug() << "in read route";
+   // populateRoute(_route_size);
+
+    qDebug() << "here";
 }
 
 void Route::write(QJsonObject &json) const {

@@ -16,6 +16,7 @@ Ticket::Ticket(const Ticket& t) : _ticket_id(ticketId++), _first_name(t.getFirst
     _discount(t.getDiscount()), _type_id(t.getTypeId())
 {
 
+
 }
 
 Ticket& Ticket::operator=(const Ticket& t) {

@@ -83,6 +83,9 @@ qDebug()<<et2.getTicketId()<<endl;
 */
     
     // pass.addTicket(t);
+
+    RouteDb rdb(QString("c:/tmpdata/routes.json"));
+    rdb.loadRoutes();
     
     QApplication a(argc, argv);
     FindRouteWindow frwindow;
