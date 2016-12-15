@@ -14,6 +14,8 @@ public:
     ~RouteDb();
 
     void addRoute(const Route& r);
+
+    void addTicket(const Ticket& t);
     void removeRoute(const Route& r);
     bool contains(const Route &r);
 

@@ -23,6 +23,13 @@ RouteDb::~RouteDb() {
     //delete _routes;
 }
 
+void RouteDb::addTicket(const Ticket& t) {
+    if (!_tickets->contains(t)) {
+        _tickets->append(t);
+        rememberSeat(t);
+    }
+}
+
 void RouteDb::addRoute(const Route &r) {
     if (!contains(r))
         _routes->append(r);

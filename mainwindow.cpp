@@ -12,7 +12,7 @@
 #include <QHBoxLayout>
 #include <QPair>
 
-MainWindow::MainWindow(int route, int date, const QVector<QPair<int,int>> availableTrainIds, const RouteDb &rdb) : _availableTrains(availableTrainIds),
+MainWindow::MainWindow(int route, int date, const QVector<QPair<int,int>> availableTrainIds, RouteDb &rdb) : _availableTrains(availableTrainIds),
     _currSeat(QString::null), _route(route), _date(date), _rdb(rdb)
 {
     qDebug() << "LEN " << _availableTrains.size();
@@ -137,8 +137,11 @@ void MainWindow::bookTicket()
 void MainWindow::fillSeat(const Ticket &t)
 {
     QMessageBox msgBox;
-    if (_currSeat != QString::null)
+    if (_currSeat != QString::null) {
         msgBox.setText(t.print());
+        _rdb.addTicket(t);
+        _rdb.saveTickets();
+    }
     else msgBox.setText("N/A");
     msgBox.exec();
 }

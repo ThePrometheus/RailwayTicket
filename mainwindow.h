@@ -22,7 +22,7 @@ class MainWindow : public QMainWindow
 
 public:
     // vector of strings while the data model isn't working properly
-    MainWindow(int route, int date, const QVector<QPair<int,int>> availableTrainIds, const RouteDb& rdb);
+    MainWindow(int route, int date, const QVector<QPair<int,int>> availableTrainIds, RouteDb& rdb);
 
 public slots:
     void findWagons(const QString & wagon);
@@ -44,7 +44,7 @@ private:
     int _route;
     int _date;
 
-    const RouteDb& _rdb;
+    RouteDb& _rdb;
 };
 
 #endif // MAINWINDOW_H
