@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QMessageBox>
 #include <QJsonArray>
 #include <QPair>
 #include <QIODevice>
@@ -27,6 +28,10 @@ void RouteDb::addTicket(const Ticket& t) {
     if (!_tickets->contains(t)) {
         _tickets->append(t);
         rememberSeat(t);
+    } else {
+        QMessageBox msg;
+        msg.setText("Sorry, this seat is already taken");
+        msg.exec();
     }
 }
 
