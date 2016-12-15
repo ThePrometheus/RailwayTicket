@@ -36,6 +36,8 @@ public:
     const QString& getStationAt(int date);
     void addArrivalStation(int date, QString station);
 
+    void bookSeat(int date, int train, int wagon, int seat) const;
+
 };
 
 bool operator ==(const Route& r1, const Route& r2);

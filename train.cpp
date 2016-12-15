@@ -21,6 +21,12 @@ Train::~Train(){
 #endif
 }
 
+void Train::bookSeat(int wagon, int seat) const
+{
+    if (wagon > _wagons->size()) return;
+    _wagons->at(wagon).bookSeat(seat);
+}
+
 void Train::populateTrain(){
     //qDebug() << number << " SIZE";
     for(int i=0;i<_train_size;++i){

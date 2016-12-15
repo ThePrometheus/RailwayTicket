@@ -23,10 +23,10 @@ bool operator ==(const Seat& s1, const Seat& s2){
     return (s1.getNumber() == s2.getNumber());
 }
 
-void Seat::makeAvailable(){
+void Seat::makeAvailable() const{
     _is_available==false?_is_available=true : 0;
 }
-void Seat::makeUnavailable(){
+void Seat::makeUnavailable() const{
     _is_available==true?_is_available=false: 0;
 }
 const int Seat::getNumber()const {

@@ -118,6 +118,13 @@ void Route::addArrivalStation(int date,QString station){
     ++_nstops;
 }
 
+void Route::bookSeat(int date, int train, int wagon, int seat) const
+{
+    for (size_t i = 0; i < _trains->size(); ++i) {
+        if (_trains->at(i).getDate() == date && _trains->at(i).getId() == train)
+            _trains->at(i).bookSeat(wagon, seat);
+    }
+}
 
 void Route::read(const QJsonObject &json) {
     qDebug() << "hi";

@@ -10,10 +10,6 @@
 class RouteDb
 {
 public:
-    // only for debug
-    QVector<Route> *_routes;
-
-    void loadRoutes();
     RouteDb(const QString& filename = QString::null, const QString& filename2 = QString::null);
     ~RouteDb();
 
@@ -21,18 +17,20 @@ public:
     void removeRoute(const Route& r);
     bool contains(const Route &r);
 
+    void loadRoutes();
     void saveRoutes();
     void saveTickets();
 
     const QVector<QSharedPointer<Route>> findRoutes(const QString &from, const QString &to);
 
 private:
-   // QVector<QSharedPointer<Route>> _routes;
     QString _rdb_location;
     QString _tdb_location;
 
+    QVector<Route> *_routes;
     QVector<Ticket> *_tickets;
 
+    void rememberSeat(const Ticket& t);
 
     RouteDb(const RouteDb&);
     RouteDb operator=(const RouteDb&);

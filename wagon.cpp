@@ -47,6 +47,13 @@ const QSharedPointer<Seat>& Wagon::getSeat(int i) const {
     }
 
 }
+
+
+void Wagon::bookSeat(int seat) const {
+    if (seat > _seats->size()) return;
+    _seats->at(seat).makeUnavailable();
+}
+
 const QString& Wagon::print(){
     _info="";
     for(int i=0;i<_seats->size();++i)

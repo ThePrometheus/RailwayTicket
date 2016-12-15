@@ -72,13 +72,13 @@ void RouteDb::loadRoutes() {
         (*_routes).operator [](i).read(obj);
         (*_routes).operator [](i).populateRoute();
     }
-    foreach (const Route& r, (*_routes)) {
+   /* foreach (const Route& r, (*_routes)) {
         qDebug() << r.getDepartStation() << " " << r.getArrivalStations().size();
 
         foreach (const QString& str, r.getArrivalStations()) {
             qDebug() << str;
         }
-    }
+    }*/
     loadFileR.close();
 
     QJsonArray tickets = jsonT["tickets"].toArray();
@@ -90,10 +90,11 @@ void RouteDb::loadRoutes() {
     for (size_t i = 0; i < tickets.size(); ++i) {
         QJsonObject obj = tickets[i].toObject();
         (*_tickets).operator [](i).read(obj);
+        rememberSeat(_tickets->at(i));
     }
-    foreach (const Ticket& t, (*_tickets)) {
+    /*foreach (const Ticket& t, (*_tickets)) {
         qDebug() << t.print();
-    }
+    }*/
 
     loadFileT.close();
 }
@@ -144,4 +145,20 @@ void RouteDb::saveTickets()
     QJsonDocument saveDocT(jsont);
     saveFileT.write(saveDocT.toJson());
     saveFileT.close();
+}
+
+void RouteDb::rememberSeat(const Ticket& t)
+{
+    int date = t.getDate();
+    int trainId = t.getTrainId();
+    int routeId = t.getRouteId();
+    int wagonN = t.getWagonNumber();
+    int seatN = t.getSeatNumber();
+
+    foreach (const Route& r, (*_routes)) {
+        if (r.getId() == routeId) {
+            r.bookSeat(date, trainId, wagonN, seatN);
+            //qDebug() << "remembered!";
+        }
+    }
 }

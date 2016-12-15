@@ -20,10 +20,11 @@ public:
     Wagon&operator=(const Wagon&);
     const QString& print();
 
-  const   QSharedPointer<Seat>& getSeat(int i) const;
-  const int getNumber() const {return _wagon_number;}
-  const int getSize() const {return _wagon_size;}
+    const QSharedPointer<Seat>& getSeat(int i) const;
+    const int getNumber() const {return _wagon_number;}
+    const int getSize() const {return _wagon_size;}
     void changeNumber(int i);
+    void bookSeat(int seat) const;
 
 };
 

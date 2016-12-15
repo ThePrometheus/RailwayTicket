@@ -24,6 +24,8 @@ public:
     const QSharedPointer<Wagon>& getWagon(int i) const;
     void setDate(int date){_date=date;}
 
+    void bookSeat(int wagon, int seat) const;
+
 };
 
 bool operator ==(const Train& t1, const Train& t2);
