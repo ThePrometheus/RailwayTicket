@@ -38,9 +38,9 @@ void RouteDb::removeRoute(const Route &r) {
 const QVector<const Train*> RouteDb::findTrains(const QString &from, const QString &to, const int on) const {
     QVector<const Train*> found;
     for (size_t i = 0; i < _routes->size(); ++i) {
-        if (_routes->at(i).getDepartStation() == from && _routes->at(i).getArrivalStations().contains(to)) {
+        if ((_routes->at(i).getDepartStation() == from || _routes->at(i).getArrivalStations().contains(from))
+                && _routes->at(i).getArrivalStations().contains(to)) {
             if (_routes->at(i).findTrain(on).getId() != -1) {
-               // const Train* const ptr = &(_routes->at(i).findTrain(on));
                 found.append(&(_routes->at(i).findTrain(on)));
             }
         }
@@ -162,9 +162,9 @@ void RouteDb::rememberSeat(const Ticket& t)
     int seatN = t.getSeatNumber();
 
     foreach (const Route& r, (*_routes)) {
-        if (r.getId() == routeId) {
+       // if (r.getId() == routeId) {
             r.bookSeat(date, trainId, wagonN, seatN);
             //qDebug() << "remembered!";
-        }
+       // }
     }
 }

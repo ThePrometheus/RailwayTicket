@@ -11,9 +11,10 @@
 #include <QDebug>
 #include <QHBoxLayout>
 
-MainWindow::MainWindow(int route, int date, const QVector<QString>& availableTrains) : _availableTrains(availableTrains),
+MainWindow::MainWindow(int route, int date, const QVector<const Train *> &availableTrains) : _availableTrains(availableTrains),
     _currSeat(QString::null), _route(route), _date(date)
 {
+    qDebug() << "LEN " << _availableTrains.size();
     QWidget *centralWidget = new QWidget;
 
     QLabel *trainLabel = new QLabel(tr("Train:"));
@@ -69,9 +70,8 @@ MainWindow::MainWindow(int route, int date, const QVector<QString>& availableTra
 
 void MainWindow::init()
 {
-    foreach (const QString& train, _availableTrains) {
-        if (!train.isEmpty() && !train.isNull())
-            trainCombo->addItem(train);
+    foreach (const Train* const train, _availableTrains) {
+        trainCombo->addItem(QString("" + train->getId()));
     }
     if (_availableTrains.size() > 0)
         trainCombo->setCurrentIndex(0);
@@ -83,7 +83,7 @@ void MainWindow::chooseSeat(const QString &seat)
 }
 
 
-void MainWindow::findWagons(const QString &font)
+void MainWindow::findWagons(const QString &wagon)
 {
    /* QString currentItem = styleCombo->currentText();
     styleCombo->clear();
@@ -110,7 +110,7 @@ void MainWindow::findWagons(const QString &font)
         wagonCombo->setCurrentIndex(0);
 }
 
-void MainWindow::findSeats(const QString &font)
+void MainWindow::findSeats(const QString & seat)
 {
     /*QString currentSize = sizeCombo->currentText();
     sizeCombo->blockSignals(true);
