@@ -77,14 +77,14 @@ void FindRouteWindow::handleRoute() {
     }*/
 
     if (!from.isEmpty() && !to.isEmpty() && !on.isEmpty()) {
-        const QVector<const Train*> f(_rdb.findTrains(from, to, on.toInt()));
+        QVector<QPair<int,int>> f(_rdb.findTrains(from, to, on.toInt()));
         if (f.size() < 1) {
             QMessageBox msgBox;
             msgBox.setText("Sorry, no tickets available at the moment.");
             msgBox.exec();
             return;
         }
-        window = new MainWindow(0,on.toInt(),f);
+        window = new MainWindow(0,on.toInt(),f,_rdb);
         window->show();
         return;
     } else {

@@ -38,6 +38,8 @@ public:
 
     void bookSeat(int date, int train, int wagon, int seat) const;
     const Train& findTrain(int date) const;
+    const Train& findTrainById(int id) const;
+
 
 };
 

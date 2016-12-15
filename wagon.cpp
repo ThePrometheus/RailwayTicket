@@ -48,6 +48,15 @@ const QSharedPointer<Seat>& Wagon::getSeat(int i) const {
 
 }
 
+const QVector<const Seat*> Wagon::findSeats() const {
+    //if (wagon > _wagons->size() || wagon < 0) return QVector<const Seat*>;
+    QVector<const Seat*> found;
+    for (size_t i = 0; i < _seats->size(); ++i) {
+        found.append(&(_seats->at(i)));
+    }
+    return found;
+}
+
 
 void Wagon::bookSeat(int seat) const {
     if (seat > _seats->size()) return;

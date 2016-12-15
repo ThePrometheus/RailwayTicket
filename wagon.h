@@ -25,6 +25,7 @@ public:
     const int getSize() const {return _wagon_size;}
     void changeNumber(int i);
     void bookSeat(int seat) const;
+    const QVector<const Seat*> findSeats() const;
 
 };
 

@@ -21,11 +21,10 @@ public:
     inline const   int getId() const{return _train_id;}
     inline  const int getDate()const {return _date;}
     inline  const int getSize()const {return _train_size;}
-    const QSharedPointer<Wagon>& getWagon(int i) const;
+    const Wagon& getWagon(int i) const;
     void setDate(int date){_date=date;}
 
     void bookSeat(int wagon, int seat) const;
-
 };
 
 bool operator ==(const Train& t1, const Train& t2);

@@ -14,6 +14,7 @@
 #include "seatwidget.h"
 #include "ticketwidget.h"
 #include "train.h"
+#include "routedb.h"
 
 class MainWindow : public QMainWindow
 {
@@ -21,11 +22,11 @@ class MainWindow : public QMainWindow
 
 public:
     // vector of strings while the data model isn't working properly
-    MainWindow(int route, int date, const QVector<const Train*>& availableTrains);
+    MainWindow(int route, int date, const QVector<QPair<int,int>> availableTrainIds, const RouteDb& rdb);
 
 public slots:
     void findWagons(const QString & wagon);
-    void findSeats(const QString &seat);
+    void findSeats(const QString &wagon);
     void chooseSeat(const QString &seat);
     void bookTicket();
     void fillSeat(const Ticket&);
@@ -38,10 +39,12 @@ private:
     QComboBox *wagonCombo;
     QScrollArea *scrollArea;
     QPushButton *bookButton;
-    const QVector<const Train*> _availableTrains;
+    const QVector<QPair<int,int>> _availableTrains;
     QString _currSeat;
     int _route;
     int _date;
+
+    const RouteDb& _rdb;
 };
 
 #endif // MAINWINDOW_H

@@ -10,9 +10,10 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QHBoxLayout>
+#include <QPair>
 
-MainWindow::MainWindow(int route, int date, const QVector<const Train *> &availableTrains) : _availableTrains(availableTrains),
-    _currSeat(QString::null), _route(route), _date(date)
+MainWindow::MainWindow(int route, int date, const QVector<QPair<int,int>> availableTrainIds, const RouteDb &rdb) : _availableTrains(availableTrainIds),
+    _currSeat(QString::null), _route(route), _date(date), _rdb(rdb)
 {
     qDebug() << "LEN " << _availableTrains.size();
     QWidget *centralWidget = new QWidget;
@@ -71,8 +72,8 @@ MainWindow::MainWindow(int route, int date, const QVector<const Train *> &availa
 void MainWindow::init()
 {
     for (size_t i = 0; i < _availableTrains.size(); ++i) {
-        const Train* const train = _availableTrains.at(i);
-        trainCombo->addItem(QString::number(i+1)+ " " + QString::number(train->getId()));
+        int trainId = _availableTrains.at(i).second;
+        trainCombo->addItem(QString::number(i+1)+ " " + QString::number(trainId));
     }
     if (_availableTrains.size() > 0)
         trainCombo->setCurrentIndex(0);
@@ -100,45 +101,30 @@ void MainWindow::findWagons(const QString &wagon)
     else
         styleCombo->setCurrentIndex(styleIndex);*/
 
-    const Train* const train = _availableTrains.at(trainCombo->currentIndex());
+    const QPair<int,int> trainId = _availableTrains.at(trainCombo->currentIndex());
    /* QVector<QString> wagons(2);
     wagons.append(QString("1"));
     wagons.append(QString("2"));*/
-    for (size_t i = 0; i < train->getSize(); ++i) {
+    for (size_t i = 0; i < _rdb.findTrain(trainId.first, trainId.second).getSize(); ++i) {
         wagonCombo->addItem(QString::number(i+1));
     }
-    if (train->getSize() > 0)
+    if (_rdb.findTrain(trainId.first, trainId.second).getSize() > 0)
         wagonCombo->setCurrentIndex(0);
+    qDebug("all set");
 }
 
-void MainWindow::findSeats(const QString & seat)
+void MainWindow::findSeats(const QString &wagon)
 {
-    /*QString currentSize = sizeCombo->currentText();
-    sizeCombo->blockSignals(true);
-    sizeCombo->clear();
-
-    int size;
-    if(fontDatabase.isSmoothlyScalable(font.family(), fontDatabase.styleString(font))) {
-        foreach(size, QFontDatabase::standardSizes()) {
-            sizeCombo->addItem(QVariant(size).toString());
-            sizeCombo->setEditable(true);
-        }
-
+    /*const Train* const train = _availableTrains->at(trainCombo->currentIndex());
+    qDebug() << "FINDSEATS TRAINS" << _availableTrains->at(trainCombo->currentIndex())->getDate();
+    qDebug() << "FINDSEATS" << wagon << _availableTrains->at(trainCombo->currentIndex());
+    if (_availableTrains->at(trainCombo->currentIndex())->getWagon(wagon.toInt()).getNumber() != -1) {
+        qDebug() << "not -1";
+        const QVector<const Seat*> seats = _availableTrains->at(trainCombo->currentIndex())->getWagon(wagon.toInt()-1).findSeats();
+        qDebug() << seats.size();
     } else {
-        foreach(size, fontDatabase.smoothSizes(font.family(), fontDatabase.styleString(font))) {
-            sizeCombo->addItem(QVariant(size).toString());
-            sizeCombo->setEditable(false);
-        }
-    }
-
-    sizeCombo->blockSignals(false);
-
-    int sizeIndex = sizeCombo->findText(currentSize);
-
-    if(sizeIndex == -1)
-        sizeCombo->setCurrentIndex(qMax(0, sizeCombo->count() / 3));
-    else
-        sizeCombo->setCurrentIndex(sizeIndex);*/
+        qDebug() << "NA";
+    }*/
 }
 
 void MainWindow::bookTicket()

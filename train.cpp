@@ -38,6 +38,7 @@ void Train::populateTrain(){
     qDebug() << "in populateTrain" << _wagons->size();
 }
 
+
 Train::Train(const Train &t) : _train_id(t.getId()), _date(t.getDate()), _train_size(t.getSize()), _wagons(new QVector<Wagon>)
 {
     //populateTrain(_train_size);
@@ -67,10 +68,11 @@ void Train::depopulateTrain(){
     _wagons->clear();
 
 }
-const QSharedPointer<Wagon>& Train::getWagon(int i) const{
-    if(i>=0&&i<_train_size) {
-        QSharedPointer<Wagon> ptr(&(_wagons->operator [](i)));
-        return ptr;
+const Wagon &Train::getWagon(int i) const{
+    qDebug() << "wagons: " << _wagons->size();
+    if(i>=0&&i<_wagons->size()) {
+        //QSharedPointer<Wagon> ptr(&(_wagons->operator [](i)));
+        return _wagons->at(i);
     }
-
+    else return Wagon(-1);
 }

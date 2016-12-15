@@ -21,7 +21,9 @@ public:
     void saveRoutes();
     void saveTickets();
 
-    const QVector<const Train*> findTrains(const QString &from, const QString &to, const int on) const;
+    const QVector<QPair<int, int> > findTrains(const QString &from, const QString &to, const int on) const;
+
+    const Train& findTrain(int routeId, int trainId) const;
     const Route& findRoute(int index) const;
 
 private:

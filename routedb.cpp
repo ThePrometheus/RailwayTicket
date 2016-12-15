@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QPair>
 #include <QIODevice>
 
 RouteDb::RouteDb(const QString &filename, const QString &filename2) : _rdb_location(filename),
@@ -35,17 +36,23 @@ void RouteDb::removeRoute(const Route &r) {
     _routes->removeOne(r);
 }
 
-const QVector<const Train*> RouteDb::findTrains(const QString &from, const QString &to, const int on) const {
-    QVector<const Train*> found;
+const QVector<QPair<int,int>> RouteDb::findTrains(const QString &from, const QString &to, const int on) const {
+    QVector<QPair<int,int>> found;
     for (size_t i = 0; i < _routes->size(); ++i) {
         if ((_routes->at(i).getDepartStation() == from || _routes->at(i).getArrivalStations().contains(from))
                 && _routes->at(i).getArrivalStations().contains(to)) {
             if (_routes->at(i).findTrain(on).getId() != -1) {
-                found.append(&(_routes->at(i).findTrain(on)));
+                found.append(QPair<int,int>(i, (_routes->at(i).findTrain(on).getId())));
             }
         }
     }
     return found;
+}
+
+
+const Train& RouteDb::findTrain(int routeId, int trainId) const
+{
+    return _routes->at(routeId).findTrainById(trainId);
 }
 
 const Route& RouteDb::findRoute(int index) const {
