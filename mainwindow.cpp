@@ -71,7 +71,7 @@ MainWindow::MainWindow(int route, int date, const QVector<const Train *> &availa
 void MainWindow::init()
 {
     foreach (const Train* const train, _availableTrains) {
-        trainCombo->addItem(QString("" + train->getId()));
+        trainCombo->addItem(QString::number(train->getId()));
     }
     if (_availableTrains.size() > 0)
         trainCombo->setCurrentIndex(0);
