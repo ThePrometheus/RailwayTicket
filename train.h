@@ -11,9 +11,9 @@ private:
     int _date;
     int _train_size;
     QVector<Wagon>* _wagons;
-    virtual void populateTrain(int number);
-    virtual void depopulateTrain();
 public:
+    virtual void populateTrain();
+    virtual void depopulateTrain();
     Train(int id=0,int date=2016,int number_of_wagons=16);
     ~Train();
     Train(const Train&);

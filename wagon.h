@@ -11,10 +11,9 @@ private:
     int _wagon_size;
     QString _info;
     QVector<Seat>* _seats;
-    void populateWagon(int number);
-    void depopulateWagon();
-
 public:
+    void populateWagon();
+    void depopulateWagon();
     Wagon(int number=0, int numberOfSeats=20);
     ~Wagon();
     Wagon(const Wagon&);

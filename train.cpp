@@ -15,17 +15,18 @@ _wagons(new QVector<Wagon>){
 }
 Train::~Train(){
     depopulateTrain();
-    delete _wagons;
+    //delete _wagons;
 #ifndef QT_NO_DEBUG
     qDebug()<<"train deleted"<<endl;
 #endif
 }
 
-void Train::populateTrain(int number){
+void Train::populateTrain(){
     //qDebug() << number << " SIZE";
-    for(int i=0;i<number;++i){
+    for(int i=0;i<_train_size;++i){
         Wagon w(i);
         _wagons->append(w);
+        _wagons->operator [](i).populateWagon();
     }
 
     qDebug() << "in populateTrain" << _wagons->size();

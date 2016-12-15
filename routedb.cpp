@@ -18,8 +18,8 @@ RouteDb::~RouteDb() {
         //saveRoutes();
     _routes->clear();
     _tickets->clear();
-    delete _tickets;
-    delete _routes;
+    //delete _tickets;
+    //delete _routes;
 }
 
 void RouteDb::addRoute(const Route &r) {
@@ -48,6 +48,7 @@ const QVector<QSharedPointer<Route>> RouteDb::findRoutes(const QString &from, co
 
 void RouteDb::loadRoutes() {
     QFile loadFile(_rdb_location);
+    QFile loadFile(_tdb_location);
 
     if (!loadFile.open(QIODevice::ReadOnly)) {
         qWarning("Couldn't open save file");
@@ -67,6 +68,7 @@ void RouteDb::loadRoutes() {
         r.read(obj);
         qDebug() << "about to append " << r.getDepartStation();
         (*_routes).append(r);
+        (*_routes).operator [](i).populateRoute();
     }
     qDebug() << "have appended " << _routes->at(0).getDepartStation();
     qDebug() << "finished loading";

@@ -24,11 +24,12 @@ Route::~Route(){
 
 }
 
-void Route::populateRoute(int number){
-    for(int i=0;i<number;++i){
-      //  Train t(i+1);
+void Route::populateRoute(){
+    for(int i=0;i<_route_size;++i){
+        Train t(i+1);
        // qDebug() << t.getId() << " " << t.getDate() << " " << t.getSize();
-        _trains->append(Train(i+1));
+        _trains->append(t);
+        _trains->operator [](i).populateTrain();
         qDebug() << "in populateRoute" << _trains->size();
     }
 }

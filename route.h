@@ -14,11 +14,10 @@ private:
     int _nstops;
     QVector<Stops>* _stops;
     int _route_size;
-    virtual  void populateRoute(int number);
-
-    virtual  void depopulateRoute();
-
 public:
+    void populateRoute();
+    void depopulateRoute();
+
     Route(const QString& depart_station="NA", int id=0, int route_size=0);
     Route(const Route&);
     Route&operator=(const Route&);

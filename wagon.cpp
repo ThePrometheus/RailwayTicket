@@ -11,7 +11,7 @@ Wagon::Wagon(int number,int size):_wagon_number(number),_wagon_size(size), _seat
 }
 Wagon::~Wagon(){
     depopulateWagon();
-    delete _seats;
+    //delete _seats;
 #ifndef QT_NO_DEBUG
     //qDebug()<<"Wagon is deleted"<<endl;
 #endif
@@ -20,7 +20,7 @@ Wagon::~Wagon(){
 
 Wagon::Wagon(const Wagon& w) :_wagon_number(w.getNumber()), _wagon_size(w.getSize()), _seats(new QVector<Seat>)
 {
-    populateWagon(_wagon_size);
+    //populateWagon();
 }
 
 Wagon& Wagon::operator=(const Wagon& w) {
@@ -30,7 +30,7 @@ Wagon& Wagon::operator=(const Wagon& w) {
     _wagon_size = w.getSize();
     _seats->clear();
     _seats = new QVector<Seat>;
-    populateWagon(_wagon_size);
+    //populateWagon(_wagon_size);
     return *this;
 }
 
@@ -58,8 +58,8 @@ const QString& Wagon::print(){
 void Wagon::changeNumber(int i){
     _wagon_number=i;
 }
-void Wagon::populateWagon(int number){
-    for(int i=0;i<number;++i){
+void Wagon::populateWagon(){
+    for(int i=0;i<_wagon_size;++i){
         Seat s(i);
         _seats->append(s);
 
