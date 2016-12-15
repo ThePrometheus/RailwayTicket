@@ -78,12 +78,11 @@ const QString& Route::getDepartStation() const{
 }
 const QVector<QString> Route::getArrivalStations() const{
     if (_stops->size() < 0) return QVector<QString>(0);
-    QVector<QString> temp(_stops->size());
+    QVector<QString> temp;
     for(int i=0;i<_stops->size();++i){
-        temp[i] = _stops->at(i).getStation();
-
+        temp.append(_stops->at(i).getStation());
     }
-    return QVector<QString>(temp);
+    return temp;
 }
 
 
@@ -130,14 +129,15 @@ void Route::read(const QJsonObject &json) {
     _stops = new QVector<Stops>;
     QJsonArray stops = json["stops"].toArray();
     for (size_t i = 0; i < stops.size(); ++i) {
-        QJsonObject obj = stops.at(i).toObject();
         Stops s;
-       // s.read(obj);
         (*_stops).append(s);
-        (*_stops).operator [](i).read(obj);
     }
 
-    qDebug() << "here";
+    for (size_t i = 0; i < stops.size(); ++i) {
+        QJsonObject obj = stops[i].toObject();
+        (*_stops).operator [](i).read(obj);
+        qDebug() << "C " << (*_stops).at(i).getDate() << (*_stops).at(i).getStation();
+    }
 }
 
 void Route::write(QJsonObject &json) const {
