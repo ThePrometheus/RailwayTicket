@@ -22,6 +22,7 @@ public:
     bool contains(const Route &r);
 
     void saveRoutes();
+    void saveTickets();
 
     const QVector<QSharedPointer<Route>> findRoutes(const QString &from, const QString &to);
 

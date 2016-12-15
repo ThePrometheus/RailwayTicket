@@ -136,7 +136,7 @@ void Route::read(const QJsonObject &json) {
     for (size_t i = 0; i < stops.size(); ++i) {
         QJsonObject obj = stops[i].toObject();
         (*_stops).operator [](i).read(obj);
-        qDebug() << "C " << (*_stops).at(i).getDate() << (*_stops).at(i).getStation();
+        //qDebug() << "C " << (*_stops).at(i).getDate() << (*_stops).at(i).getStation();
     }
 }
 

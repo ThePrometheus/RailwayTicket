@@ -47,59 +47,89 @@ const QVector<QSharedPointer<Route>> RouteDb::findRoutes(const QString &from, co
 }
 
 void RouteDb::loadRoutes() {
-    QFile loadFile(_rdb_location);
-    //QFile loadFile(_tdb_location);
+    QFile loadFileR(_rdb_location);
+    QFile loadFileT(_tdb_location);
 
-    if (!loadFile.open(QIODevice::ReadOnly)) {
-        qWarning("Couldn't open save file");
+    if (!loadFileR.open(QIODevice::ReadOnly) || !loadFileT.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open save files");
         return;
     }
 
-    QJsonDocument loadDoc(QJsonDocument::fromJson(loadFile.readAll()));
-    QJsonObject json = loadDoc.object();
+    QJsonDocument loadDocR(QJsonDocument::fromJson(loadFileR.readAll()));
+    QJsonObject jsonR = loadDocR.object();
+    QJsonDocument loadDocT(QJsonDocument::fromJson(loadFileT.readAll()));
+    QJsonObject jsonT = loadDocT.object();
 
-    QJsonArray routes = json["routes"].toArray();
+    QJsonArray routes = jsonR["routes"].toArray();
     _routes->clear();
     size_t lim = routes.size();
     for (size_t i = 0; i < lim; ++i) {
-        QJsonObject obj = routes[i].toObject();
         Route r;
         (*_routes).append(r);
+    }
+    for (size_t i = 0; i < lim; ++i) {
+        QJsonObject obj = routes[i].toObject();
         (*_routes).operator [](i).read(obj);
         (*_routes).operator [](i).populateRoute();
     }
-    qDebug() << "out of loop";
     foreach (const Route& r, (*_routes)) {
         qDebug() << r.getDepartStation() << " " << r.getArrivalStations().size();
+
         foreach (const QString& str, r.getArrivalStations()) {
             qDebug() << str;
         }
     }
-    qDebug() << "finished loading";
-    loadFile.close();
+    loadFileR.close();
+
+    QJsonArray tickets = jsonT["tickets"].toArray();
+
+    loadFileT.close();
 }
 
 void RouteDb::saveRoutes() {
-    QFile saveFile(_rdb_location);
+    QFile saveFileR(_rdb_location);
 
-    if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open save file");
+    if (!saveFileR.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open save files");
         return;
     }
 
-    QJsonObject json;
+    QJsonObject jsonr;
     QJsonArray arr;
 
-    qDebug()<<"prior to cycle"<<endl;
     for (size_t i = 0; i < _routes->size(); ++i) {
         QJsonObject obj;
         _routes->at(i).write(obj);
         arr.append(obj);
     }
-    qDebug()<<"after the cycle"<<endl;
-    json["routes"] = arr;
+    jsonr["routes"] = arr;
 
-    QJsonDocument saveDoc(json);
-    saveFile.write(saveDoc.toJson());
-    saveFile.close();
+    QJsonDocument saveDocR(jsonr);
+    saveFileR.write(saveDocR.toJson());
+    saveFileR.close();
+    saveTickets();
+}
+
+void RouteDb::saveTickets()
+{
+    QFile saveFileT(_tdb_location);
+
+    if (!saveFileT.open(QIODevice::WriteOnly)) {
+        qWarning("Couldn't open save file");
+        return;
+    }
+
+    QJsonObject jsont;
+    QJsonArray arrt;
+
+    for (size_t i = 0; i < _tickets->size(); ++i) {
+        QJsonObject obj;
+        _tickets->at(i).write(obj);
+        arrt.append(obj);
+    }
+    jsont["tickets"] = arrt;
+
+    QJsonDocument saveDocT(jsont);
+    saveFileT.write(saveDocT.toJson());
+    saveFileT.close();
 }
